@@ -1,2 +1,34 @@
 /* Main style*/
 
+h1{
+    color: #42277F;
+    font-weight: bold;
+}
+
+.btn-primary{
+    background-color: #42277F;
+    border: none;
+
+}
+
+.btn-primary:hover{
+    background-color: #34276C;
+}
+
+.btn-primary:focus{
+    background-color: #292254;
+}
+
+
+.card,.card-header,.card-body{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+
+/* Welcome page*/
+
+.plane>img:hover{
+    transform: rotate(5deg);
+    transition: transform 330ms ease-in-out;
+}
