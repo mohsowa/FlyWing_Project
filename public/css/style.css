@@ -32,3 +32,7 @@ h1{
     transform: rotate(5deg);
     transition: transform 330ms ease-in-out;
 }
+
+.heading{
+    min-height: 100px;
+}
