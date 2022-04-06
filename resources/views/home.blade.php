@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('page_title') {{__('HOME')}} @endsection
 
 @section('content')
 <div class="container">
