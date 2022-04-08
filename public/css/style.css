@@ -5,6 +5,11 @@ h1{
     font-weight: bold;
 }
 
+h3{
+    color: #292254;
+}
+
+
 .btn-primary{
     background-color: #42277F;
     border: none;
@@ -19,9 +24,21 @@ h1{
     background-color: #292254;
 }
 
+.btn-secondary{
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #42277F;
+    color: #42277F;
+}
+
+.btn-secondary:hover{
+    background-color: #292254;
+    border-color: #292254;
+    color: white;
+}
+
 
 .card,.card-header,.card-body{
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 
@@ -35,4 +52,14 @@ h1{
 
 .heading{
     min-height: 100px;
+}
+
+/* login*/
+.login{
+    background-image: url("/src/images/plane/seat.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 12vw;
+    padding-bottom: 12vw;
 }

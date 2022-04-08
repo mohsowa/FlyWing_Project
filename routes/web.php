@@ -21,3 +21,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// For Sign in with Google
+Route::get('auth/google', [App\Http\Controllers\HomeController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [App\Http\Controllers\HomeController::class, 'handleGoogleCallback']);
+
+
+// for change language
+Route::get('lang/{locale}', function ($locale) {
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
