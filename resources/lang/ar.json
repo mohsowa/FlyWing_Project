@@ -7,5 +7,6 @@
     "Email Address" : "البريد الإلكتروني",
     "Password" : "كلمة المرور",
     "Forgot Your Password?": "نسيت كلمة المرور؟",
-    "Remember me" : "تذكرني"
+    "Remember me" : "تذكرني",
+    "Sign in With Google": "الدخول بواسطة حساب Google"
 }

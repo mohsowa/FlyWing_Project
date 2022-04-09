@@ -49,12 +49,6 @@
 
             @auth
 
-                <!-- Cart-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                    </li>
 
                     <!--Alert Mood-->
                     <li class="nav-item">

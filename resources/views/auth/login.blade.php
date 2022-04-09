@@ -8,7 +8,7 @@
                     <div class="card-login">
                         <div class="display-5 text-center">{{ __('Login') }}</div>
                         <br>
-                        <div class="">
+                        <div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
@@ -57,8 +57,8 @@
 
                                 <!-- Submit button -->
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-blue btn-block " >{{__('Login')}}</button>
-                                    <a type="button" href="{{ route('google.login') }}" class="btn btn-blue-outline btn-block " >Sign in With Google</a>
+                                    <button type="submit" class="btn btn-blue " >{{__('Login')}}</button>
+                                    <a type="button" href="{{ route('google.login') }}" class="btn btn-blue-outline" ><i class="fa-brands fa-google"></i> {{__('Sign in With Google')}}</a>
                                 </div>
                             </form>
 
