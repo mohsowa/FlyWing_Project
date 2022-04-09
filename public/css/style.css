@@ -9,6 +9,14 @@ h3{
     color: #292254;
 }
 
+a{
+    color: #36A9E1;
+}
+
+a:hover{
+    color: #36cde1;
+}
+
 
 .btn-primary{
     background-color: #42277F;
@@ -33,6 +41,22 @@ h3{
 .btn-secondary:hover{
     background-color: #292254;
     border-color: #292254;
+    color: white;
+}
+
+.btn-blue{
+    background-color: #36A9E1;
+    color: white;
+}
+
+.btn-blue-outline{
+    background-color: rgba(54, 169, 225, 0);
+    border-color: #36A9E1;
+    color: white;
+}
+.btn-blue-outline:hover{
+    background-color: rgb(12, 113, 162);
+    border-color: rgb(12, 113, 162);
     color: white;
 }
 
@@ -63,3 +87,46 @@ h3{
     padding-top: 12vw;
     padding-bottom: 12vw;
 }
+
+.card-login{
+    border-color: rgba(255, 255, 255, 0.7);
+    color: white;
+}
+
+
+
+.form-control{
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid #36A9E1;
+}
+
+.form-control:focus{
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid #36A9E1;
+    outline: none;
+}
+
+.form-control::placeholder{
+    color: rgba(255, 255, 255, 0.8);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+    border-bottom: 1px solid #36A9E1;
+    transition: background-color 5000s ease-in-out 0s;
+}
+

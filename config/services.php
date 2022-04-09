@@ -31,9 +31,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => '1027579806051-dadca81hnkh4u7e7ers7d7iscvdvp0hm.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'http://localhost:8000/auth/google/callback',
+        'client_id' => '178376185158-o730359s90490dn8ur2h7sdhs0n9qhs8.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'https://flywing.online/google/callback',
     ],
 
 ];

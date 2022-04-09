@@ -23,9 +23,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // For Sign in with Google
-Route::get('auth/google', [App\Http\Controllers\HomeController::class, 'redirectToGoogle']);
-Route::get('auth/google/callback', [App\Http\Controllers\HomeController::class, 'handleGoogleCallback']);
-
+Route::prefix('google')->name('google.')->group( function(){
+    Route::get('login', [App\Http\Controllers\GoogleController::class, 'loginWithGoogle'])->name('login');
+    Route::any('callback', [App\Http\Controllers\GoogleController::class, 'callbackFromGoogle'])->name('callback');
+});
 
 // for change language
 Route::get('lang/{locale}', function ($locale) {

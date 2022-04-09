@@ -4,11 +4,11 @@
     <div class=" login">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <div class="card">
-                        <div class="card-header">{{ __('Login') }}</div>
-
-                        <div class="card-body">
+                <div class="col-md-5 col-lg-4">
+                    <div class="card-login">
+                        <div class="display-5 text-center">{{ __('Login') }}</div>
+                        <br>
+                        <div class="">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
@@ -57,8 +57,8 @@
 
                                 <!-- Submit button -->
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-block " >{{__('Login')}}</button>
-                                    <a type="button" href="{{ url('auth/google') }}" class="btn btn-secondary btn-block " >Sign in With Google</a>
+                                    <button type="submit" class="btn btn-blue btn-block " >{{__('Login')}}</button>
+                                    <a type="button" href="{{ route('google.login') }}" class="btn btn-blue-outline btn-block " >Sign in With Google</a>
                                 </div>
                             </form>
 
