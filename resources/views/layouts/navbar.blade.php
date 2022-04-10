@@ -77,12 +77,11 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link" href="#" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i class="fa-solid fa-circle-user"></i> {{ Auth::user()->Fname  }} {{ Auth::user()->Lname  }}
                         </a>
 
                         <div class="dropdown-menu @if(App::isLocale('en')) dropdown-menu-end @else dropdown-menu-start  @endif" aria-labelledby="navbarDropdown">
                             <div class="text-center  m-1">
-                                {{ Auth::user()->name }}
                                 <div class="text-black-50 small">
                                     {{ Auth::user()->email }}
                                 </div>

@@ -18,9 +18,10 @@ class GoogleController extends Controller
 
     public function callbackFromGoogle()
     {
-
         try {
             $user = Socialite::driver('google')->user();
+
+
             // Check Users Email If Already There
             $is_user = User::where('email', $user->getEmail())->first();
             if(!$is_user){
@@ -28,11 +29,13 @@ class GoogleController extends Controller
                 $saveUser = User::updateOrCreate([
                     'google_id' => $user->getId(),
                 ],[
-                    'name' => $user->getName(),
+                    'Fname' => explode(' ',$user->getName())[0],
+                    'Lname' => explode(' ',$user->getName())[1],
                     'email' => $user->getEmail(),
                     'password' => Hash::make($user->getName().'@'.$user->getId()),
                     'email_verified_at' =>  $date->toRfc850String()
                 ]);
+
             }else{
                 $saveUser = User::where('email',  $user->getEmail())->update([
                     'google_id' => $user->getId(),

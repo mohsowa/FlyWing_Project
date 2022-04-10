@@ -17,9 +17,9 @@
                                 <div class="mb-3">
                                     <div>
                                         <input id="name" type="text" placeholder="{{ __('FirstName') }}"
-                                               class="form-control @error('name') is-invalid @enderror" name="name"
-                                               value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                        @error('name')
+                                               class="form-control @error('Fname') is-invalid @enderror" name="Fname"
+                                               value="{{ old('Fname') }}" required autocomplete="name" autofocus>
+                                        @error('Fname')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -30,9 +30,9 @@
                                 <!--LastName-->
                                 <div class="mb-3">
                                     <input id="name" type="text" placeholder="{{ __('LastName') }}"
-                                           class="form-control @error('name') is-invalid @enderror" name="name"
-                                           value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                    @error('name')
+                                           class="form-control @error('Lname') is-invalid @enderror" name="Lname"
+                                           value="{{ old('Lname') }}" required autocomplete="name" autofocus>
+                                    @error('Lname')
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
