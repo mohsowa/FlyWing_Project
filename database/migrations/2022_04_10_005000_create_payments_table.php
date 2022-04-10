@@ -14,7 +14,20 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+
+            $table->unsignedInteger('ticket_id');
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+
+            $table->integer('operation_id');
+
+            $table->string('bank');
+            $table->string('company_name');
+            $table->string('card_type');
+            $table->string('status');
+            $table->date('date');
+            $table->float('amount');
+
             $table->timestamps();
         });
     }
