@@ -1,0 +1,145 @@
+/* Main style*/
+
+h1{
+    color: #42277F;
+    font-weight: bold;
+}
+
+h3{
+    color: #292254;
+}
+
+a,.nav-link{
+    color: #36A9E1;
+}
+
+
+
+a:hover,.nav-link:hover{
+    color: #36cde1;
+}
+
+.bg-main{
+    background-color: #292254;
+    color: white;
+}
+
+.btn-primary{
+    background-color: #42277F;
+    border: none;
+
+}
+
+.btn-primary:hover{
+    background-color: #34276C;
+}
+
+.btn-primary:focus{
+    background-color: #292254;
+}
+
+.btn-secondary{
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #42277F;
+    color: #42277F;
+}
+
+.btn-secondary:hover{
+    background-color: #292254;
+    border-color: #292254;
+    color: white;
+}
+
+
+.btn-blue{
+    background-color: #36A9E1;
+    color: white;
+}
+
+.btn-blue-outline{
+    background-color: rgba(54, 169, 225, 0);
+    border-color: #36A9E1;
+    color: white;
+}
+.btn-blue-outline:hover{
+    background-color: rgba(54, 169, 225, 0.9);
+    border-color: rgba(54, 169, 225, 0.9);
+    color: white;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+
+.card,.card-header,.card-body{
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+
+
+/* Welcome page*/
+
+.plane>img:hover{
+    transform: rotate(5deg);
+    transition: transform 330ms ease-in-out;
+}
+
+.heading{
+    min-height: 100px;
+}
+
+/* login*/
+.login{
+    background-image: url("/src/images/plane/seat.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 12vw;
+    padding-bottom: 12vw;
+}
+
+.card-login{
+    border-color: rgba(255, 255, 255, 0.7);
+    color: white;
+}
+
+
+
+.form-control{
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid #36A9E1;
+    border-radius: 0px;
+}
+
+.form-control:focus{
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid #36A9E1;
+    outline: none;
+    border-radius: 0px;
+}
+
+.form-control::placeholder{
+    color: rgba(255, 255, 255, 0.8);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+    border-bottom: 1px solid #36A9E1;
+    transition: background-color 5000s ease-in-out 0s;
+}
+

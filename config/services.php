@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => '178376185158-o730359s90490dn8ur2h7sdhs0n9qhs8.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'https://flywing.online/google/callback',
+    ],
+
 ];
