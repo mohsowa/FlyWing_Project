@@ -13,10 +13,15 @@ a,.nav-link{
     color: #36A9E1;
 }
 
-
-
 a:hover,.nav-link:hover{
     color: #36cde1;
+}
+
+.section_nav_tab>li>button{
+    color: #a8a8a8; !important;
+}
+.section_nav_tab>li>button:hover{
+    color: #292254; !important;
 }
 
 .bg-main{
