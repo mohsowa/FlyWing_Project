@@ -14,7 +14,16 @@ class CreatePlanesTable extends Migration
     public function up()
     {
         Schema::create('planes', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+
+            $table->string('status');
+            $table->string('aircraft_type');
+
+            $table->date('next_maintenance_date');
+            $table->date('last_maintenance_date');
+
+
+
             $table->timestamps();
         });
     }

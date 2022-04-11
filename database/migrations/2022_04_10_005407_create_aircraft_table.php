@@ -14,7 +14,20 @@ class CreateAircraftTable extends Migration
     public function up()
     {
         Schema::create('aircraft', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+
+            $table->unsignedInteger('plane_id');
+            $table->foreign('plane_id')->references('id')->on('planes')->onDelete('cascade');
+
+            $table->integer('num_first_clas');
+            $table->float('price_first_clas');
+
+            $table->integer('num_bus_clas');
+            $table->float('price_bus_clas');
+
+            $table->integer('num_econ_clas');
+            $table->float('price_econ_clas');
+
             $table->timestamps();
         });
     }

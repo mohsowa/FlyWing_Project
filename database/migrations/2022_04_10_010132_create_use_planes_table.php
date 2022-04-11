@@ -14,8 +14,13 @@ class CreateUsePlanesTable extends Migration
     public function up()
     {
         Schema::create('use_planes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+
+            $table->unsignedInteger('ticket_id');
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+
+            $table->unsignedInteger('plane_id');
+            $table->foreign('plane_id')->references('id')->on('planes')->onDelete('cascade');
+
         });
     }
 

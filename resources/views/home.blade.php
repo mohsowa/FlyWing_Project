@@ -8,11 +8,7 @@
     </div>
     <div>
 
-        @if(\App\Models\User::isAdmin())
-            here 1
-        @else
-            here 2
-        @endif
+
 
     </div>
 </div>

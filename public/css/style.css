@@ -9,14 +9,20 @@ h3{
     color: #292254;
 }
 
-a{
+a,.nav-link{
     color: #36A9E1;
 }
 
-a:hover{
+
+
+a:hover,.nav-link:hover{
     color: #36cde1;
 }
 
+.bg-main{
+    background-color: #292254;
+    color: white;
+}
 
 .btn-primary{
     background-color: #42277F;
@@ -44,6 +50,7 @@ a:hover{
     color: white;
 }
 
+
 .btn-blue{
     background-color: #36A9E1;
     color: white;
@@ -55,8 +62,8 @@ a:hover{
     color: white;
 }
 .btn-blue-outline:hover{
-    background-color: rgb(12, 113, 162);
-    border-color: rgb(12, 113, 162);
+    background-color: rgba(54, 169, 225, 0.9);
+    border-color: rgba(54, 169, 225, 0.9);
     color: white;
 }
 .btn-block {
