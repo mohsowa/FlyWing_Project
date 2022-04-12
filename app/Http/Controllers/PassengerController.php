@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
+use App\Models\Passenger;
 use Illuminate\Http\Request;
 
-class TicketController extends Controller
+class PassengerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.tickets');
+        return view('admin.pages.passengers');
     }
 
     /**
@@ -41,10 +45,10 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Ticket  $ticket
+     * @param  \App\Models\Passenger  $passenger
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
+    public function show(Passenger $passenger)
     {
         //
     }
@@ -52,10 +56,10 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Ticket  $ticket
+     * @param  \App\Models\Passenger  $passenger
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ticket $ticket)
+    public function edit(Passenger $passenger)
     {
         //
     }
@@ -64,10 +68,10 @@ class TicketController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ticket  $ticket
+     * @param  \App\Models\Passenger  $passenger
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, Passenger $passenger)
     {
         //
     }
@@ -75,10 +79,10 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Ticket  $ticket
+     * @param  \App\Models\Passenger  $passenger
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ticket $ticket)
+    public function destroy(Passenger $passenger)
     {
         //
     }

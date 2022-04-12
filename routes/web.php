@@ -33,3 +33,13 @@ Route::get('lang/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
+
+Route::resource('admin','App\Http\Controllers\AdminController');
+Route::resource('payment','App\Http\Controllers\PaymentController');
+Route::resource('passenger','App\Http\Controllers\PassengerController');
+Route::resource('aircraft','App\Http\Controllers\AircraftController');
+Route::resource('plane','App\Http\Controllers\PlaneController');
+Route::resource('flight','App\Http\Controllers\FlightController');
+Route::resource('luggage','App\Http\Controllers\LuggageController');
+Route::resource('ticket','App\Http\Controllers\TicketController');
+

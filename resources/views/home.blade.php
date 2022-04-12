@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('page_title') {{__('HOME')}} @endsection
+
 
 @section('content')
 <div class="container py-4 p-5">
@@ -8,11 +8,7 @@
     </div>
 </div>
 
-{{-- Open Admin Page --}}
-@if(App\Models\Admin::where('user_id', Auth::user()->id)->exists())
-    @include('admin.home')
-@endif
-
+@yield('main-content')
 
 
 @endsection

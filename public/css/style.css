@@ -35,6 +35,24 @@ a:hover,.nav-link:hover{
 
 }
 
+.btn-primary-outline{
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #42277F;
+    color: #42277F;
+}
+
+.btn-primary-outline:hover{
+    background-color: #42277F;
+    border-color: #42277F;
+    color: white;
+}
+
+.btn-primary-outline-active{
+    background-color: #42277F;
+    border-color: #42277F;
+    color: white;
+}
+
 .btn-primary:hover{
     background-color: #34276C;
 }

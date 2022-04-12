@@ -8,5 +8,8 @@
     "Password" : "كلمة المرور",
     "Forgot Your Password?": "نسيت كلمة المرور؟",
     "Remember me" : "تذكرني",
-    "Sign in With Google": "الدخول بواسطة حساب Google"
+    "Sign in With Google": "الدخول بواسطة حساب Google",
+    "FirstName": "الاسم الأول",
+    "LastName": "الاسم الأخير",
+    "Confirm Password": "تأكيد كلمة المرور"
 }
