@@ -16,7 +16,7 @@
 </div>
 
         <div class="py-3">
-            @yield('service-content')
+            @yield('service-content', View::make('layouts.waiting'))
         </div>
 
 
