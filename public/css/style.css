@@ -166,3 +166,12 @@ select:-webkit-autofill:focus {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+option{
+    margin: 1px;
+    color: #292254;
+    word-wrap: unset;
+}
+
+select{
+    word-wrap: unset;
+}
