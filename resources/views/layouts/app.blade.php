@@ -9,7 +9,8 @@
 
     <title>{{ config('app.name', 'flywing') }} | @yield('page_title','Welcome')</title>
 
-    <!-- Scripts -->
+    <!-- Scripts -->\
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
 

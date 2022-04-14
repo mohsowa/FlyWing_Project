@@ -7,19 +7,12 @@
         <div class="row text-center">
             <div class="col-lg mb-3 row">
                 <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i></div>
-                <select class="form-control custom-select col" data-swplive="true" name="origin" aria-live="true"
-                        required>
-                    <option selected>Open this select menu</option>
-                    @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
-                        <option value="{{$airport->code}}">{{$airport->code}}, {{$airport->name}}
-                            , {{$airport->country}}</option>
-                    @endforeach
-                </select>
+                <input type="search" class="form-control col" name="origin" placeholder="{{__('Origin')}}">
             </div>
 
             <div class="col-lg mb-3 row">
                 <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-plane-arrival"></i></div>
-                <select class="form-control custom-select col" data-swplive="true" name="destination" aria-live="true"
+                <select  class="form-control custom-select col" data-swplive="true" name="destination" aria-live="true"
                         required>
                     <option selected>Open this select menu</option>
                     @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
@@ -52,3 +45,9 @@
 </div>
 
 
+{{---}}
+@foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
+    <option value="{{$airport->code}}">{{$airport->code}}, {{$airport->name}}
+        , {{$airport->country}}</option>
+@endforeach
+{{---}}
