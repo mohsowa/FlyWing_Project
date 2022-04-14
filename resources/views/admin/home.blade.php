@@ -15,7 +15,10 @@
     </nav>
 </div>
 
-        <div class="py-3">
+        <div class="py-2">
+            <div class="container">
+                <hr>
+            </div>
             @yield('service-content', View::make('layouts.waiting'))
         </div>
 

@@ -1,5 +1,5 @@
 <div class="container py-4">
-    <form method="POST" action="{{ route('search-one-way')}}">
+    <form method="POST" action="{{ route('search-one-way')}}" autocomplete="off">
         @csrf
         @method('POST')
 
@@ -7,7 +7,7 @@
         <div class="row text-center">
             <div class="col-lg mb-3 row">
                 <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i></div>
-                <input type="search" class="form-control col" name="origin" placeholder="{{__('Origin')}}">
+                <input type="search" placeholder="Origin" name="origin" class="col form-control" >
             </div>
 
             <div class="col-lg mb-3 row">
@@ -45,9 +45,3 @@
 </div>
 
 
-{{---}}
-@foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
-    <option value="{{$airport->code}}">{{$airport->code}}, {{$airport->name}}
-        , {{$airport->country}}</option>
-@endforeach
-{{---}}
