@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
-class TicketControole extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class TicketControole extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pages.tickets');
     }
 
     /**

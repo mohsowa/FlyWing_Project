@@ -14,8 +14,13 @@ class CreateTicketForPaymentsTable extends Migration
     public function up()
     {
         Schema::create('ticket_for_payments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+
+            $table->unsignedInteger('payment_id');
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
+
+            $table->unsignedInteger('ticket_id');
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+
         });
     }
 
