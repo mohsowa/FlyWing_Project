@@ -72,11 +72,30 @@
                                            name="password_confirmation" required autocomplete="new-password">
                                 </div>
 
+
+                                <!--Account Type-->
+                                <div class="mb-3">
+                                    <div>{{__('Account Type')}}</div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="accountType" id="Radios1" value="Passenger" checked>
+                                        <label class="form-check-label" for="Radios1">
+                                            {{__('Passenger')}}
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="accountType" id="Radios2" value="Admin">
+                                        <label class="form-check-label" for="Radios2">
+                                            {{__('Admin')}}
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                         <button type="submit" class="btn btn-blue btn-block">
                                             {{ __('Register') }}
                                         </button>
                                 </div>
+
                             </form>
                         </div>
                     </div>

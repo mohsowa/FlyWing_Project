@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Passenger;
 use Illuminate\Http\Request;
+use Mockery\Generator\StringManipulation\Pass\Pass;
+
 
 class PassengerController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +27,7 @@ class PassengerController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -39,7 +38,10 @@ class PassengerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Passenger::create([
+            "user_id" => $request->get('user_id')
+        ]);
+        return redirect()->to('/admin');
     }
 
     /**

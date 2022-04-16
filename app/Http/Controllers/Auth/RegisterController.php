@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Passenger;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -66,12 +67,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if($data['accountType'] == 'Passenger'){
+            unset($data['accountType']);
+            User::create([
+                'Fname' => $data['Fname'],
+                'Lname' => $data['Lname'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
 
-        return User::create([
-            'Fname' => $data['Fname'],
-            'Lname' => $data['Lname'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+            $user = User::where('email' ,$data['email'] )->first();
+            Passenger::create([
+                'user_id' => $user->id
+            ]);
+
+        }elseif ($data['accountType'] == 'Admin'){
+            unset($data['accountType']);
+            return User::create([
+                'Fname' => $data['Fname'],
+                'Lname' => $data['Lname'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }else{
+            return redirect()->to('login');
+        }
+        return redirect()->to('home');
     }
 }

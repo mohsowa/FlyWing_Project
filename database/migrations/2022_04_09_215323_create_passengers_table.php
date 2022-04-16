@@ -16,11 +16,11 @@ class CreatePassengersTable extends Migration
         Schema::create('passengers', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('sex');
-            $table->date('date_of_birth');
+            $table->string('sex')->nullable();
+            $table->date('date_of_birth')->nullable();
 
             $table->timestamps();
         });

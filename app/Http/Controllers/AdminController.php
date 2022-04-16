@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -30,7 +31,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -41,9 +42,13 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        Admin::create([
+            "user_id" => $request->get('user_id'),
+            "role" => $request->get('role')
+        ]);
+        return redirect()->to('/admin');
 
+    }
     /**
      * Display the specified resource.
      *
@@ -75,7 +80,10 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        Admin::where('id',$admin->id)->first()->update([
+            "role" => $request->get('role')
+        ]);
+        return redirect()->to('/admin');
     }
 
     /**
@@ -86,6 +94,7 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+       Admin::where('id',$admin->id)->delete();
+       return redirect()->to('/admin');
     }
 }

@@ -30,7 +30,11 @@ class HomeController extends Controller
             return view('admin.home');
         }
 
+        if(DB::table('passengers')->where('user_id', Auth::user()->id)->exists()){
+            return view('passenger.home');
+        }
 
-        return view('home');
+
+        return view('layouts.review');
     }
 }
