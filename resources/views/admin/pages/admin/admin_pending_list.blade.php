@@ -2,7 +2,7 @@
     <table class="table table-borderless table-hover">
         <thead class="bg-main rounded">
         <tr>
-            <th scope="col">{{__('ID')}}</th>
+            <th scope="col">{{__('User ID')}}</th>
             <th scope="col">{{__('Email')}}</th>
             <th scope="col">{{__('Name')}}</th>
             <th scope="col">{{__('Role')}}</th>

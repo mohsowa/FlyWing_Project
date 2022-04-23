@@ -12,7 +12,6 @@
                         <div>
                             <form method="POST" action="{{ route('register') }}">
                             @csrf
-
                             <!--FirstName-->
                                 <div class="mb-3">
                                     <div>

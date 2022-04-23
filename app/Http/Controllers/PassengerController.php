@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Passenger;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Mockery\Generator\StringManipulation\Pass\Pass;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 
 class PassengerController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +25,11 @@ class PassengerController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.passengers');
+        if(DB::table('admins')->where('user_id', Auth::user()->id)->exists()) {
+            return view('admin.pages.passengers');
+        }else{
+            return view('layouts.permission_view');
+        }
     }
 
     /**
@@ -52,7 +64,13 @@ class PassengerController extends Controller
      */
     public function show(Passenger $passenger)
     {
-        //
+        $user = User::where('id',$passenger->user_id)->first();
+        $passenger = Passenger::where('id',$passenger->id)->first();
+        if(DB::table('admins')->where('user_id', Auth::user()->id)->exists()){
+            return view('admin.pages.passengers.passenger_profile')->with(compact('user','passenger'));
+        }else{
+            return view('layouts.permission_view');
+        }
     }
 
     /**

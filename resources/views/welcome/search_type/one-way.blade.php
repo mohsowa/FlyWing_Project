@@ -1,5 +1,5 @@
 <div class="container py-4">
-    <form method="POST" action="{{ route('search-one-way')}}" autocomplete="off">
+    <form method="POST" action="{{ route('search-one-way')}}" autocomplete="off" onsubmit="return chickAirport(this)">
         @csrf
         @method('POST')
 
@@ -7,16 +7,22 @@
         <div class="row text-center">
             <div class="col-lg mb-3 row">
                 <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i></div>
-                <input type="search" placeholder="Origin" name="origin" class="col form-control" >
+                <select class="js-example-basic-multiple col form-control" name="origin"  required>
+                    <option disabled selected>{{__('Select origin')}}</option>
+                    @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
+                        <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
+                            , {{$airport->country}}</option>
+                    @endforeach
+                </select>
+
             </div>
 
             <div class="col-lg mb-3 row">
                 <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-plane-arrival"></i></div>
-                <select  class="form-control custom-select col" data-swplive="true" name="destination" aria-live="true"
-                        required>
-                    <option selected>Open this select menu</option>
+                <select class="js-example-basic-multiple col form-control" name="destination"  required>
+                    <option disabled selected>{{__('Select destination')}}</option>
                     @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
-                        <option value="{{$airport->code}}">{{$airport->code}}, {{$airport->name}}
+                        <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
                             , {{$airport->country}}</option>
                     @endforeach
                 </select>
@@ -38,7 +44,7 @@
 
 
         <div class="">
-            <button class="btn btn-blue btn-block" type="submit">{{__('Search')}}</button>
+            <button class="btn btn-blue btn-block"  type="submit">{{__('Search')}}</button>
         </div>
 
     </form>

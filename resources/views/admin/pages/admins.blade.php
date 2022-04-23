@@ -30,14 +30,12 @@
                             class="fa-solid fa-hourglass-empty"></i> {{__('Pending Requests')}}</button>
                 </li>
 
-
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="admin_list" role="tabpanel"
                  aria-labelledby="admin_list-tab"> @include('admin.pages.admin.admin_list') </div>
             <div class="tab-pane fade" id="profile" role="tabpanel"
                  aria-labelledby="profile-tab">@include('admin.pages.admin.admin_pending_list')</div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
 
     </div>

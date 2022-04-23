@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -12,6 +14,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -21,7 +24,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.admins');
+        if((DB::table('admins')->where('user_id', Auth::user()->id)->exists())){
+            return view('admin.pages.admins');
+        }else{
+            return view('layouts.permission_view');
+        }
+
     }
 
     /**

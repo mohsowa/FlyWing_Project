@@ -11,5 +11,30 @@
     "Sign in With Google": "الدخول بواسطة حساب Google",
     "FirstName": "الاسم الأول",
     "LastName": "الاسم الأخير",
-    "Confirm Password": "تأكيد كلمة المرور"
+    "Confirm Password": "تأكيد كلمة المرور",
+
+    "Admins" : "المشرفون",
+    "Passengers" : "الركاب",
+    "Flights" : "الرحلات",
+    "Payments" : "المدفوعات",
+    "Tickets": "التذاكر",
+    "Site Settings": "إعدادات الموقع",
+
+    "Email": "البريد الإلكتروني",
+    "Name": "الاسم",
+    "Profile": "الملف الشخصصي",
+    "View": "عرض",
+
+
+    "Admin ID" : "معرف المشرف",
+    "User ID": "معرف المستخدم",
+    "Passenger ID": "معرف الراكب",
+    "Role": "الوظيفة",
+    "Remove": "إزالة",
+    "Update" : "تحديث",
+    "Admins List" : "قائمة المشرفون",
+    "Pending Requests": "الطلبات المعلقة",
+    "Action" : "الإجراء",
+    "Accept" : "قبول",
+    "Move to Passengers" : "النقل إلى الركاب"
 }
