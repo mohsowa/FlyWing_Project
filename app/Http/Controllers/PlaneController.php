@@ -14,7 +14,7 @@ class PlaneController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pages.planes');
     }
 
     /**
@@ -35,7 +35,7 @@ class PlaneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

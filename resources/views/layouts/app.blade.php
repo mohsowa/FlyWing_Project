@@ -19,6 +19,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
     <link href="https://fonts.googleapis.com/css?family=Almarai" rel="stylesheet">
 
     <!-- Styles -->
@@ -27,13 +28,28 @@
 </head>
 <body>
 <div id="app">
+
+
+    {{--}}
+    @auth
+    @if(\App\Models\User::where('id' ,Auth::user()->id)->first()->email_verified_at == null)
+        <div class="text-center alert-warning p-2">
+            <div><a class="link-dark" href="verify"> {{__('Verify your email now !')}}</a></div>
+        </div>
+    @endif
+    @endauth
+    {{--}}
+
     @include('layouts.navbar')
 
     <main class="">
-        @yield('content')
+    @yield('content')
     </main>
 
     @include('layouts.footer')
 </div>
+
+
+
 </body>
 </html>

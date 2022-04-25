@@ -25,3 +25,7 @@ function chickAirport(form){
         return false;
     }
 }
+
+$('#myCollapsible').collapse({
+    toggle: false
+})

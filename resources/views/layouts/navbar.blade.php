@@ -14,23 +14,43 @@
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 
-
-
-
             <div class="navbar-nav">
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home">{{__("Dashboard")}}<span class="sr-only">(current)</span></a>
-                    </li>
+                    @if(DB::table('admins')->where('user_id', Auth::user()->id)->exists())
+                        <li class="nav-item">
+                            <a class="@yield('admin-active','nav-link ')" href="{{ route('admin.index') }}"><i class="fa-solid fa-user-gear"></i> {{__('Admins')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@yield('passenger-active','nav-link ')" href="{{ route('passenger.index') }}"><i class="fa-solid fa-users"></i> {{__('Passengers')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@yield('flight-active','nav-link ')" href="{{ route('flight.index') }}"><i class="fa-solid fa-calendar-check"></i> {{__('Flights')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@yield('plane-active','nav-link ')" href="{{ route('plane.index') }}"><i class="fa-solid fa-plane"></i>  {{__('Planes')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@yield('payment-active','nav-link ')" href="{{ route('payment.index') }}"><i class="fa-solid fa-credit-card"></i>  {{__('Payments')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@yield('ticket-active','nav-link ')" href="{{ route('ticket.index') }}"><i class="fa-solid fa-ticket"></i> {{__('Tickets')}}</a>
+                        </li>
+                    @endif
+
+                    @if(DB::table('passengers')->where('user_id', Auth::user()->id)->exists())
+                    Passenger
+                    @endif
+
                 @endauth
 
-
+                @guest
                 <li class="nav-item">
                     <a class="nav-link" href="#">{{__("About Us")}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">{{__("Contact Us")}}</a>
                 </li>
+                @endguest
 
             </div>
 

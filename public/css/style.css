@@ -13,6 +13,10 @@ a,.nav-link{
     color: #36A9E1;
 }
 
+.text-blue{
+    color: #36A9E1;
+}
+
 a:hover,.nav-link:hover{
     color: #36cde1;
 }
@@ -50,8 +54,14 @@ a:hover,.nav-link:hover{
 .btn-primary-outline-active{
     background-color: #42277F;
     border-color: #42277F;
+    padding: 1vw;
     color: white;
 }
+a.btn-primary-outline-active,a.btn-primary-outline-active:hover{
+    color: white;
+    text-decoration: none;
+}
+
 
 .btn-primary:hover{
     background-color: #34276C;

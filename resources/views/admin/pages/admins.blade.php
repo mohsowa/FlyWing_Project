@@ -15,6 +15,19 @@
 
     <div class="container py-3">
 
+        {{-- Admin Dashboard--}}
+        <div class="row">
+            <div class="col-sm-12 col-md-6 text-center align-self-center">
+               <div class="align-self-center">
+                   <h1>{{__('Admin Dashboard')}}</h1>
+               </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <img src="{{asset('/src/images/admin.png')}}" style="width: 30vw;" class="img-fluid">
+            </div>
+        </div>
+
+        {{-- Page Content--}}
         <ul class="nav nav-tabs section_nav_tab" id="myTab" role="tablist">
 
                 <li class="nav-item" role="presentation">

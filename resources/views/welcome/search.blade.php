@@ -1,5 +1,7 @@
+<div style="margin-top: 8vw">
+<img src="{{asset('/src/images/cities.png')}}" class="img-fluid">
 <div class="bg-main">
-    <div class="container p-4">
+    <div class="container p-3">
         <div class="text-center">
             <h4>{{__('Search for Flight Tickets')}}</h4>
         </div>
@@ -19,4 +21,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
