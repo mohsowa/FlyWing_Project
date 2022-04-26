@@ -19,6 +19,8 @@ class CreatePlanesTable extends Migration
             $table->string('status');
             $table->string('aircraft_type');
 
+            $table->date('first_flight_date');
+
             $table->date('next_maintenance_date');
             $table->date('last_maintenance_date');
 

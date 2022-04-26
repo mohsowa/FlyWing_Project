@@ -19,14 +19,14 @@ class CreateAircraftTable extends Migration
             $table->unsignedInteger('plane_id');
             $table->foreign('plane_id')->references('id')->on('planes')->onDelete('cascade');
 
-            $table->integer('num_first_clas');
-            $table->float('price_first_clas');
+            $table->integer('num_first_class');
+            $table->float('price_first_class');
 
-            $table->integer('num_bus_clas');
-            $table->float('price_bus_clas');
+            $table->integer('num_bus_class');
+            $table->float('price_bus_class');
 
-            $table->integer('num_econ_clas');
-            $table->float('price_econ_clas');
+            $table->integer('num_econ_class');
+            $table->float('price_econ_class');
 
             $table->timestamps();
         });

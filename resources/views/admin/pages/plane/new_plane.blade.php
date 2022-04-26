@@ -31,7 +31,7 @@
                             <div class="row mb-3">
                                 <div class="col-3 text-center align-self-center"><div><i class="fa-solid fa-check"></i></div><span>{{__('Status')}}</span></div>
                                 <select class="col js-example-basic-multiple form-control" name="status" placeholder="{{__('Status')}}">
-                                    <option value="Select" selected>{{__('Select')}}</option>
+                                    <option selected>{{__('Select')}}</option>
                                     <option value="active" >{{__('Active')}}</option>
                                     <option value="inactive">{{__('Inactive')}}</option>
                                     <option value="u_maintenance">{{__('Under Maintenance')}}</option>
@@ -41,7 +41,7 @@
                             <div class="row mb-3">
                                 <div class="col-3 text-center align-self-center"><div><i class="fa-solid fa-plane-up"></i></div><span>{{__('Aircraft Type')}}</span></div>
                                 <select class="col js-example-basic-multiple form-control" name="type" placeholder="{{__('type')}}" required>
-                                    <option value="Select">{{__('Select')}}</option>
+                                    <option>{{__('Select')}}</option>
                                     <option value="Boeing 747">{{__('Boeing 747')}}</option>
                                     <option value="Boeing 777">{{__('Boeing 777')}}</option>
                                     <option value="Boeing 787">{{__('Boeing 787')}}</option>
@@ -66,7 +66,7 @@
                                 <div class="col-3 text-center align-self-center"><div><i class="fa-solid fa-arrow-right-long"></i><i class="fa-solid fa-screwdriver-wrench"></i></div> <span>{{__('Next Maintenance')}}</span></div>
                                 <input class="col form-control" type="date" name="NextMaintenance" value="{{old('Next Maintenance')}}" placeholder="{{__('Next Maintenance')}}" required>
                             </div>
-                            
+
 
 
 
@@ -85,35 +85,35 @@
 
                                 {{--First class seats input --}}
                                 <div class="row mb-3">
-                                    <div class="col-3 text-center align-self-center"><i class="fa-solid fa-user-tie"></i></div>
-                                    <input class="col form-control" type="text" name="fistSeat" value="{{old('fistSeat')}}" placeholder="{{__('First Class Seates Number')}}" required>
+                                    <div class="col-3 text-center align-self-center"><i class="fa-solid fa-people-group"></i></div>
+                                    <input class="col form-control" type="number" name="fistSeat" value="{{old('fistSeat')}}" placeholder="{{__('First Class Seates Number')}}" required>
                                 </div>
 
                                 {{--First class price--}}
                                 <div class="row mb-3">
-                                    <div class="col-3 text-center align-self-center"><i class="fa-regular fa-money-bill-wave"></i></div>
-                                    <input class="col form-control" type="text" name="fistPrice" value="{{old('firstPrice')}}" placeholder="{{__('First Class Price')}}" required>
+                                    <div class="col-3 text-center align-self-center"><i class="fa-solid fa-money-bill"></i></div>
+                                    <input class="col form-control" type="number" name="fistPrice" value="{{old('firstPrice')}}" placeholder="{{__('First Class Price')}}" required>
                                 </div>
 
                             {{--Business class seats--}}
                             <div class="row mb-3">
-                                <div class="col-3 text-center align-self-center"><i class="fa-regular fa-briefcase"></i></div>
-                                <input class="col form-control" type="text" name="BusinessSeats" value="{{old('BusinessSeats')}}" placeholder="{{__('Business Class Seates Number')}}" required>
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-people-group"></i></div>
+                                <input class="col form-control" type="number" name="BusinessSeats" value="{{old('BusinessSeats')}}" placeholder="{{__('Business Class Seates Number')}}" required>
                             </div>
                             {{--Business class price--}}
                             <div class="row mb-3">
-                                <div class="col-3 text-center align-self-center"><i class="fa-regular fa-money-bill-wave"></i></div>
-                                <input class="col form-control" type="text" name="BusinessPrice" value="{{old('BusinessPrice')}}" placeholder="{{__('Business Class Price')}}" required>
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-money-bill"></i></div>
+                                <input class="col form-control" type="number" name="BusinessPrice" value="{{old('BusinessPrice')}}" placeholder="{{__('Business Class Price')}}" required>
                             </div>
                             {{--Economy class seats--}}
                             <div class="row mb-3">
-                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-person"></i></div>
-                                <input class="col form-control" type="text" name="EcoSeats" value="{{old('EcoSeats')}}" placeholder="{{__('Economy Class Seates Number')}}" required>
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-people-group"></i></div>
+                                <input class="col form-control" type="number" name="EcoSeats" value="{{old('EcoSeats')}}" placeholder="{{__('Economy Class Seates Number')}}" required>
                             </div>
                             {{--Economy class Price--}}
                             <div class="row mb-3">
-                                <div class="col-3 text-center align-self-center"><i class="fa-regular fa-money-bill-wave"></i></div>
-                                <input class="col form-control" type="text" name="EcoSeatsPrice" value="{{old('EcoPrice')}}" placeholder="{{__('Economy Class Price')}}" required>
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-money-bill"></i></div>
+                                <input class="col form-control" type="number" name="EcoSeatsPrice" value="{{old('EcoPrice')}}" placeholder="{{__('Economy Class Price')}}" required>
                             </div>
                         </div>
 

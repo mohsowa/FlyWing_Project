@@ -1,4 +1,4 @@
-<div class="container py-3">
+<div class="container table-responsive py-3">
     <table class="table table-borderless table-hover">
         <thead class="bg-main rounded">
         <tr>

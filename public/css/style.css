@@ -5,6 +5,10 @@ h1{
     font-weight: bold;
 }
 
+.text-primary{
+    color: #292254; !important;
+}
+
 h3{
     color: #292254;
 }
@@ -17,8 +21,21 @@ a,.nav-link{
     color: #36A9E1;
 }
 
-a:hover,.nav-link:hover{
-    color: #36cde1;
+.input_dark_placeholder::placeholder{
+    color: #505050;
+}
+
+.nav-item span{
+    font-size: 0px;
+}
+
+.nav-item .btn-primary-outline-active span{
+    font-size: small;
+
+}
+
+.nav-item:hover span{
+    font-size: small;
 }
 
 .section_nav_tab>li>button{
@@ -158,6 +175,10 @@ a.btn-primary-outline-active,a.btn-primary-outline-active:hover{
 
 .form-control::placeholder{
     color: rgba(255, 255, 255, 0.8);
+}
+
+.form-control-dark::placeholder{
+    color: rgba(93, 93, 93, 0.8);
 }
 
 input:-webkit-autofill,

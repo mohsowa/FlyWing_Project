@@ -1,5 +1,5 @@
-<div class="container py-3">
-    <table class="table table-borderless table-hover">
+<div class="container table-responsive-xxl py-3">
+    <table class="table  table-borderless table-hover">
         <thead class="bg-main rounded">
         <tr>
             <th scope="col">{{__('Admin ID')}}</th>

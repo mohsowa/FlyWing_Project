@@ -52,7 +52,7 @@ class AdminController extends Controller
     {
         Admin::create([
             "user_id" => $request->get('user_id'),
-            "role" => $request->get('role')
+            "role" => $request->get('role'),
         ]);
         return redirect()->to('/admin');
 
