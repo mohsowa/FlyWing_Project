@@ -10,6 +10,29 @@
     <title>{{ config('app.name', 'flywing') }} | @yield('page_title','Welcome')</title>
 
     <!-- Scripts -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkS8-hD0el8TSCuk9IPaHuFI8k6zzT6VM",
+            authDomain: "flywing-project-65989.firebaseapp.com",
+            projectId: "flywing-project-65989",
+            storageBucket: "flywing-project-65989.appspot.com",
+            messagingSenderId: "761121009654",
+            appId: "1:761121009654:web:528af4023f2cad9af621d7",
+            measurementId: "G-51FYJ1GJ6M"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/script.js') }}" defer></script>

@@ -7,7 +7,7 @@
                 <h4> <i class="fa-solid fa-plane"></i> {{__('Add New Plane')}}</h4>
             </div>
 
-            <div class="container py-4">
+            <div class="container py-4 p-4">
                 <form method="POST" action="{{ route('plane.store')}}" autocomplete="off" onsubmit="return chickAirport(this)">
                     @csrf
                     @method('POST')

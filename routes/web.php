@@ -46,4 +46,6 @@ Route::resource('ticket','App\Http\Controllers\TicketController');
 
 Route::get('airport', [App\Http\Controllers\AirportsController::class, 'getAirportsInfo']);
 Route::post('search-one-way', [App\Http\Controllers\SearchController::class, 'one_way_search'])->name('search-one-way');
+Route::post('search-round-trip', [App\Http\Controllers\SearchController::class, 'round_trip_search'])->name('search-round-trip');
+
 

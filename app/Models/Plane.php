@@ -9,7 +9,12 @@ class Plane extends Model
 {
     use HasFactory;
 
+    /**
+     * @var mixed
+     */
+
     protected $fillable = [
+        'id',
         'plane_id',
         'status',
         'aircraft_type',

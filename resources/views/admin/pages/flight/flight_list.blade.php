@@ -1,45 +1,31 @@
-<div class="container py-3">
+<div class="container table-responsive py-3">
     <table class="table table-borderless table-hover">
         <thead class="bg-main rounded">
         <tr>
-            <th scope="col">{{__('Admin ID')}}</th>
-            <th scope="col">{{__('Email')}}</th>
-            <th scope="col">{{__('Name')}}</th>
-            <th scope="col">{{__('Role')}}</th>
-            <th scope="col">{{__('Remove')}}</th>
+            <th scope="col">{{__('Flight ID')}}</th>
+            <th scope="col">{{__('Status')}}</th>
+            <th scope="col">{{__('Origin')}}</th>
+            <th scope="col">{{__('Destination')}}</th>
+            <th scope="col">{{__('Date')}}</th>
+            <th scope="col">{{__('Detail')}}</th>
         </tr>
         </thead>
         <tbody>
-        @foreach(\App\Models\Admin::all() as $admin)
+        @foreach(\App\Models\Flight::all() as $flight)
+            @if($flight->status == 'new')
 
-            <tr>
-                <th scope="row">{{$admin->id}}</th>
-                <td>{{\App\Models\User::where('id',$admin->user_id)->first()->email}}</td>
-                <td>{{\App\Models\User::where('id',$admin->user_id)->first()->Fname}} {{\App\Models\User::where('id',$admin->user_id)->first()->Lname}}</td>
-                <td>
-                    <form method="POST" action="{{route('admin.update',$admin)}}"  enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <input name="user_id" value="{{$admin->id}}" hidden>
-                        <div class="row mb-3">
-                            <select name="role" class="form-select form-select-sm col" required @if(Auth::user()->id == $admin->user_id) disabled @endif>
-                                <option value="system_organizer" @if($admin->role == 'system_organizer') selected @endif>{{__('System organizer')}}</option>
-                                <option value="supervisor" @if($admin->role == 'supervisor') selected @endif>{{__('Supervisor')}}</option>
-                                <option value="monitor" @if($admin->role == 'monitor') selected @endif>{{__('Monitor')}}</option>
-                                <option value="flight_organizer" @if($admin->role == 'flight_organizer') selected @endif>{{__('Flight organizer')}}</option>
-                            </select>
-                            <button class="btn btn-sm btn-block btn-outline-success col @if(Auth::user()->id == $admin->user_id) disabled @endif" type="submit" >{{__('Update')}}</button>
-                        </div>
-                    </form>
-                </td>
-                <td>
-                    <form method="POST" action="{{route('admin.destroy',$admin)}}" enctype="multipart/form-data">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-sm btn-block btn-outline-danger @if(Auth::user()->id == $admin->user_id) disabled @endif" type="submit" >{{__('Remove')}}</button>
-                    </form>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">{{$flight->id}}</th>
+                    <td>{{$flight->status}}</td>
+                    <td>{{$flight->origin}}</td>
+                    <td>{{$flight->destination}}</td>
+                    <td>{{$flight->date}}</td>
+                    <td>
+                        <a href="{{route('flight.show',$flight->id)}}" class="btn btn-primary-outline btn-sm btn-block"><i class="fa-solid fa-eye"></i> {{__('View')}}</a>
+                    </td>
+                </tr>
+
+            @endif
         @endforeach
         </tbody>
     </table>

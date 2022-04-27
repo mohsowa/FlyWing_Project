@@ -19,6 +19,12 @@
             <div class="col-sm-12 col-md-12 col-lg-6 text-center align-self-center">
                 <div class="align-self-center">
                     <h1 class="display-3">{{__('Plane Info')}}</h1>
+                    <form method="POST" action="{{route('plane.destroy',$plane)}}" onsubmit="return confirm('{{__('Are you sure you want to delete this plane? ')}}')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn col-4 btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> {{__('Delete')}}</button>
+                    </form>
+
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-6">
@@ -78,7 +84,6 @@
                         <div class="row mb-3">
                             <div class="col-3 text-center align-self-center"><i class="fa-solid fa-check"></i></div>
                             <select class="col text-black-50 form-control" name="status" placeholder="{{__('Status')}}">
-                                <option @if($plane->aircraft_type == 'Select') selected @endif>{{__('Select')}}</option>
                                 <option value="active" @if($plane->status == 'active') selected @endif>{{__('Active')}}</option>
                                 <option value="inactive" @if($plane->status == 'inactive') selected @endif>{{__('Inactive')}}</option>
                                 <option value="u_maintenance" @if($plane->status == 'u_maintenance') selected @endif>{{__('Under Maintenance')}}</option>
@@ -101,7 +106,6 @@
                         <div class="row mb-3">
                             <div class="col-3 text-center align-self-center"><i class="fa-solid fa-plane-up"></i></div>
                             <select class="col text-black-50  form-control" name="type" placeholder="{{__('type')}}" required>
-                                <option @if($plane->aircraft_type == 'Select') selected @endif>{{__('Select')}}</option>
                                 <option value="Boeing 747" @if($plane->aircraft_type == 'Boeing 747') selected @endif>{{__('Boeing 747')}}</option>
                                 <option value="Boeing 777" @if($plane->aircraft_type == 'Boeing 777') selected @endif>{{__('Boeing 777')}}</option>
                                 <option value="Boeing 787" @if($plane->aircraft_type == 'Boeing 747') selected @endif>{{__('Boeing 787')}}</option>

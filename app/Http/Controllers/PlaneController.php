@@ -125,7 +125,7 @@ class PlaneController extends Controller
             "status" => $request['status'],
             "aircraft_type" => $request['type'],
             "first_flight_date" => $request['fistFlightD'],
-            "next_maintenance_date" => $request['NextMaintenance'],
+            "next_maintenance_date" => $request['NextMaintenance']? : $plane->next_maintenance_date,
             "last_maintenance_date" => $plane->next_maintenance_date,
             "updated_at" => new DateTime('now')
         ]);
@@ -143,6 +143,8 @@ class PlaneController extends Controller
             'updated_at' => new DateTime('now')
         ]);
         $is_updated = true;
+        $aircraft = Aircraft::where('plane_id' , $plane->id)->first();
+        $plane = Plane::where('id',$plane->id)->first();
 
         return view('admin.pages.plane.plane_info')->with(compact('plane','aircraft','is_updated'));
     }
@@ -155,6 +157,8 @@ class PlaneController extends Controller
      */
     public function destroy(Plane $plane)
     {
-        //
+
+        Plane::where('id',$plane->id)->delete();
+        return redirect()->to('/plane');
     }
 }

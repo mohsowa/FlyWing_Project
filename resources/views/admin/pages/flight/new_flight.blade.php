@@ -7,8 +7,8 @@
               <h4> {{__('Create new Flight')}}</h4>
            </div>
 
-           <div class="container py-4">
-               <form method="POST" action="{{ route('search-one-way')}}" autocomplete="off" onsubmit="return chickAirport(this)">
+           <div class="container py-4 p-4">
+               <form method="POST" action="{{ route('flight.store')}}" autocomplete="off" onsubmit="return chickFlight(this)">
                    @csrf
                    @method('POST')
 
@@ -17,14 +17,40 @@
                    @include('layouts.__config.airports_select_form')
 
                    <div class="row text-center">
+
+                       {{-- Date --}}
                        <div class="col-lg mb-3 row">
-                           <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-calendar-days"></i></div>
-                           <input type="date" name="date" class="form-control col" required>
+                           <div class="col-3 align-self-center"><i class="fa-solid fa-calendar-days"></i></div>
+                           <input type="date" name="date" value="{{old('date')}}" class="form-control col" required>
                        </div>
 
+                       {{-- Plane --}}
                        <div class="col-lg mb-3 row">
-                           <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-people-group"></i></div>
-                           <input type="number" name="passengers" value="1" max="10" min="1" class="form-control col" required>
+                           <div class="col-3 align-self-center"><i class="fa-solid fa-plane"></i></div>
+                           <select name="plane_id" class="col form-control js-example-basic-multiple">
+                                <option value="select" disabled selected>{{__('Select Plane')}}</option>
+                               @foreach(\App\Models\Plane::all() as $plane)
+                                   @if($plane->status == 'active')
+                                       <option value="{{$plane->id}}">{{$plane->id}}, {{$plane->aircraft_type}}</option>
+                                   @endif
+                               @endforeach
+                           </select>
+                       </div>
+
+                   </div>
+
+                   <div class="row text-center">
+
+                       {{-- departure_time --}}
+                       <div class="col-lg mb-3 row">
+                           <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i><i class="fa-solid fa-clock"></i></div>
+                           <input type="time" name="departure_time" value="{{old('departure_time')}}" class="form-control col">
+                       </div>
+
+                       {{-- arrival_time --}}
+                       <div class="col-lg mb-3 row">
+                           <div class="col-3 align-self-center"><i class="fa-solid fa-plane-arrival"></i><i class="fa-solid fa-clock"></i></div>
+                           <input type="time" name="arrival_time" value="{{old('arrival_time')}}" class="form-control col">
                        </div>
 
                    </div>
@@ -35,6 +61,7 @@
                    </div>
 
                </form>
+
            </div>
        </div>
    </div>

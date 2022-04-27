@@ -13,12 +13,22 @@
             </div>
 
             <div class="col-lg mb-3 row">
-                <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-people-group"></i></div>
+                <div class="col-3 align-self-center"><i class="fa-solid fa-people-group"></i></div>
                 <input type="number" name="passengers" value="1" max="10" min="1" class="form-control col" required>
             </div>
 
         </div>
 
+        {{-- Away date box--}}
+        <div id="awayDate" style="display: none">
+            <div class="row text-center">
+                <div class="col-lg mb-3 row">
+                    <div  class="col-3 align-self-center" ><i class="fa-solid fa-calendar-day"></i></div>
+                    <input type="date" name="date_back"  class="form-control col" required >
+                </div>
+                <div class="col-lg mb-3 row"></div>
+            </div>
+        </div>
 
         <div class="">
             <button class="btn btn-blue btn-block"  type="submit">{{__('Search')}}</button>

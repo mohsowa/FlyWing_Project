@@ -11,7 +11,17 @@
 
     <div class="container">
 
-        <h3 class="h3">Tickets Page</h3>
+        {{-- Payment Dashboard--}}
+        <div class="row">
+            <div class="col-sm-12 col-md-6 text-center align-self-center">
+                <div class="align-self-center">
+                    <h1>{{__('Tickets Dashboard')}}</h1>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 text-center p-3">
+                <img src="{{asset('/src/images/ticket.png')}}" style="width: 50vw;" class="img-fluid">
+            </div>
+        </div>
     </div>
 
 @endsection
