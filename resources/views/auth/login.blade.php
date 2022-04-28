@@ -59,7 +59,7 @@
                                 <!-- Submit button -->
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-blue " >{{__('Login')}}</button>
-                                    <a type="button" href="{{ route('google.login') }}" class="btn btn-blue-outline" ><i class="fa-brands fa-google"></i> {{__('Sign in With Google')}}</a>
+                                    <a type="button" href="{{ route('google.login') }}" class="btn btn-blue-outline text-white" ><i class="fa-brands fa-google"></i> {{__('Sign in With Google')}}</a>
                                 </div>
                             </form>
 

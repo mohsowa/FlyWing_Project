@@ -2,14 +2,17 @@
     <form method="POST" action="{{ route('search-one-way')}}" autocomplete="off" onsubmit="return chickAirport(this)">
         @csrf
         @method('POST')
-
+        <div class="form-check form-switch mb-3" ><i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <label class="form-check-label" for="flexSwitchCheckDefault">{{__('Round-Trip')}}</label>
+            <input class="form-check-input" type="checkbox" id="round-trip" onchange="roundTrip(this)">
+        </div>
         {{-- Include select origin and destination--}}
         @include('layouts.__config.airports_select_form')
 
         <div class="row text-center">
             <div class="col-lg mb-3 row">
-                <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-calendar-days"></i></div>
-                <input type="date" name="date" class="form-control col" required>
+                <div class="col-3 align-self-center" ><i class="fa-solid fa-calendar-days"></i> <i class="fa-solid fa-plane-departure"></i> </div>
+                <input type="date" name="date_go" class="form-control col" required>
             </div>
 
             <div class="col-lg mb-3 row">
@@ -23,8 +26,8 @@
         <div id="awayDate" style="display: none">
             <div class="row text-center">
                 <div class="col-lg mb-3 row">
-                    <div  class="col-3 align-self-center" ><i class="fa-solid fa-calendar-day"></i></div>
-                    <input type="date" name="date_back"  class="form-control col" required >
+                    <div  class="col-3 align-self-center" ><i class="fa-solid fa-calendar-days"></i> <i class="fa-solid fa-plane-arrival"></i></div>
+                    <input type="date" name="date_back"  class="form-control col">
                 </div>
                 <div class="col-lg mb-3 row"></div>
             </div>

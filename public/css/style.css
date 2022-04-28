@@ -5,8 +5,8 @@ h1{
     font-weight: bold;
 }
 
-.text-primary{
-    color: #292254; !important;
+.text-primary-p{
+    color: #42277F;
 }
 
 h3{
@@ -109,12 +109,10 @@ a.btn-primary-outline-active,a.btn-primary-outline-active:hover{
 .btn-blue-outline{
     background-color: rgba(54, 169, 225, 0);
     border-color: #36A9E1;
-    color: white;
 }
 .btn-blue-outline:hover{
     background-color: rgba(54, 169, 225, 0.9);
     border-color: rgba(54, 169, 225, 0.9);
-    color: white;
 }
 .btn-block {
     display: block;
@@ -462,3 +460,14 @@ select{
     display: none; }
 
 /************************************************************/
+
+.card-ticket{
+    border-color: #42277F;
+}
+
+
+.card-ticket:hover{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: rgba(66, 39, 127, 0.02);
+
+}

@@ -56,7 +56,7 @@
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center"><i class="fa-solid fa-check-double"></i></div>
                             <select name="status" class="col form-control js-example-basic-multiple" required>
-                                <option value="new" @if($flight->status == 'new') selected @endif>{{__('New')}}</option>
+                                <option value="new" @if($flight->status == 'new') selected @endif @if($flight->status == 'booking' ||  $flight->status == 'closed')disabled @endif>{{__('New')}}</option>
                                 <option value="booking" @if($flight->status == 'booking') selected @endif>{{__('Booking')}}</option>
                                 <option value="closed" @if($flight->status == 'closed') selected @endif>{{__('Closed')}}</option>
                             </select>
@@ -107,7 +107,7 @@
                         {{-- Plane --}}
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center"><i class="fa-solid fa-plane"></i></div>
-                            <select name="plane_id" class="col form-control js-example-basic-multiple" required>
+                            <select name="plane_id" class="col form-control js-example-basic-multiple" disabled required>
                                 @foreach(\App\Models\Plane::all() as $plane)
                                     @if($plane->status == 'active')
                                         @if($flight->plane_id == $plane->id)

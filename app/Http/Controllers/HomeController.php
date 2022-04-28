@@ -26,11 +26,16 @@ class HomeController extends Controller
     public function index()
     {
 
-        if(DB::table('admins')->where('user_id', Auth::user()->id)->exists()){
+        $user = Auth::user();
+        $is_admin = DB::table('admins')->where('user_id', $user->id)->exists();
+        $is_passenger = DB::table('passengers')->where('user_id', $user->id)->exists();
+        if($is_admin === true){
+            $this->middleware('auth');
             return view('admin.home');
         }
 
-        if(DB::table('passengers')->where('user_id', Auth::user()->id)->exists()){
+        if($is_passenger === true){
+            $this->middleware('auth');
             return view('passenger.home');
         }
 

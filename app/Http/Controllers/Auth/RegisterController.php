@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Passenger;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Auth;
+use DateTime;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,7 +27,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, Authenticatable;
 
     /**
      * Where to redirect users after registration.
@@ -62,36 +66,40 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
         if($data['accountType'] == 'Passenger'){
             unset($data['accountType']);
-            User::create([
+            $user = User::create([
                 'Fname' => $data['Fname'],
                 'Lname' => $data['Lname'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
 
-            $user = User::where('email' ,$data['email'] )->first();
             Passenger::create([
-                'user_id' => $user->id
+                'user_id' =>$user->id,
+                'created_at' => new DateTime('now'),
+                'updated_at' => new DateTime('now')
             ]);
+
+            return $user;
+
 
         }elseif ($data['accountType'] == 'Admin'){
             unset($data['accountType']);
-            return User::create([
+            $user = User::create([
                 'Fname' => $data['Fname'],
                 'Lname' => $data['Lname'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
-        }else{
-            return redirect()->to('login');
+
+            return $user;
         }
-        return redirect()->to('home');
+
     }
 }

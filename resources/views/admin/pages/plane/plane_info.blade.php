@@ -140,7 +140,7 @@
 
 
                         <div class="text-black-50 text-center mb-3 m-1">
-                            {{__('Last maintenance input')}}
+                            {{__('Last Maintenance')}}
                         </div>
 
                         <div class="row mb-3">
@@ -165,7 +165,7 @@
 
                         <div class="row mb-3">
                             <div class="col-3 text-center align-self-center"><i class="fa-solid fa-arrow-right-long"></i><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                            <input class="col text-black-50 form-control" type="date" name="NextMaintenance" value="{{old('Next Maintenance')}}" placeholder="{{__('Next Maintenance')}}" required>
+                            <input class="col text-black-50 form-control" type="date" name="NextMaintenance" value="{{old('Next Maintenance')}}" placeholder="{{__('Next Maintenance')}}" >
                         </div>
 
 
@@ -253,6 +253,12 @@
 
             </form>
         </div>
+
+
+        {{-- Releted Flight Section--}}
+         <hr>
+        <div class="m-2"> <h3>{{__('Related Flights')}}</h3></div>
+        @include('admin.pages.plane.__releted_plane_flight')
 
     </div>
 

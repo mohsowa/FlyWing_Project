@@ -107,7 +107,7 @@ class FlightController extends Controller
     {
         Flight::where('id',$flight->id)->update([
             'status' => $request['status'],
-            'plane_id'  =>$request['plane_id'],
+            'plane_id'  =>$request['plane_id']?: $flight->plane_id ,
             'date' => $request['date'],
             'origin' => $request['origin']? : $flight->origin,
             'destination' => $request['destination']? : $flight->destination,

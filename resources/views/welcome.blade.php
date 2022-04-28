@@ -7,8 +7,9 @@
 
         <!-- Search Section -->
         @include('welcome.search')
+
+        <!--recent_tickets-->
+        @include('welcome.recent_flights')
     </section>
-
-
 
 @endsection

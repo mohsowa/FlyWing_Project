@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Passenger;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Mockery\Generator\StringManipulation\Pass\Pass;
 use Illuminate\Support\Facades\DB;
@@ -13,11 +14,7 @@ use Auth;
 class PassengerController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
 
-    }
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +22,7 @@ class PassengerController extends Controller
      */
     public function index()
     {
+        $this->middleware('auth');
         if(DB::table('admins')->where('user_id', Auth::user()->id)->exists()) {
             return view('admin.pages.passengers');
         }else{
@@ -50,10 +48,13 @@ class PassengerController extends Controller
      */
     public function store(Request $request)
     {
+        dd('here');
         Passenger::create([
-            "user_id" => $request->get('user_id')
+            "user_id" => $request->get('user_id'),
+            'created_at' => new DateTime('now'),
+            'updated_at' => new DateTime('now')
         ]);
-        return redirect()->to('/admin');
+        return redirect()->to('/home');
     }
 
     /**
@@ -93,7 +94,7 @@ class PassengerController extends Controller
      */
     public function update(Request $request, Passenger $passenger)
     {
-        //
+        $this->middleware('auth');
     }
 
     /**
@@ -104,6 +105,6 @@ class PassengerController extends Controller
      */
     public function destroy(Passenger $passenger)
     {
-        //
+        $this->middleware('auth');
     }
 }

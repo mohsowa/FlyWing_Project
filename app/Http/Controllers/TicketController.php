@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use Auth;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -14,6 +15,19 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
+        $is_admin = \App\Models\Admin::where('user_id',$user->id)->exists();
+
+        if($is_passenger){
+            return view('passenger.pages.tickets');
+        }
+
+
+        if($is_admin){
+            return view('passenger.pages.tickets');
+        }
+
         return view('admin.pages.tickets');
     }
 
@@ -35,7 +49,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

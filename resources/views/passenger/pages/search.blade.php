@@ -13,7 +13,7 @@
 
         {{-- Payment Dashboard--}}
         <div class="row">
-            <div class="col-sm-12 col-md-6 text-center align-self-center ">
+            <div class="col-sm-12 col-md-6 text-center align-self-center">
                 <div class="align-self-center">
                     <h1>{{__('Tickets Dashboard')}}</h1>
                 </div>

@@ -38,19 +38,19 @@
                     @endif
 
                     @if(DB::table('passengers')->where('user_id', Auth::user()->id)->exists())
-                    Passenger
+                            <li class="nav-item">
+                                <a class="@yield('home-active','nav-link ')" href="/dashboard"><i class="fa-solid fa-gauge"></i>  <span>{{__('Dashboard')}}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="@yield('payment-active','nav-link ')" href="{{ route('payment.index') }}"><i class="fa-solid fa-credit-card"></i>  <span>{{__('Payments')}}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="@yield('ticket-active','nav-link ')" href="{{ route('ticket.index') }}"><i class="fa-solid fa-ticket"></i> <span>{{__('Tickets')}}</span></a>
+                            </li>
                     @endif
 
                 @endauth
 
-                @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{__("About Us")}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{__("Contact Us")}}</a>
-                </li>
-                @endguest
 
             </div>
 
@@ -96,6 +96,7 @@
                                 </div>
                             </div>
                             <hr>
+                            <a class="dropdown-item" href="#">{{__('User Profile')}}</a>
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

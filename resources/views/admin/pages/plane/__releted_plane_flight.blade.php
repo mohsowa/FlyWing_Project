@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         @foreach(\App\Models\Flight::all() as $flight)
-            @if($flight->status == 'new' or $flight->status == 'booking')
+            @if($flight->plane_id == $plane->id)
 
                 <tr>
                     <th scope="row">{{$flight->id}}</th>

@@ -32,7 +32,7 @@
 
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="old_flight-tab" data-bs-toggle="tab" data-bs-target="#old_flight"
-                            type="button" role="tab" aria-controls="profile" aria-selected="false"><i class="fa-solid fa-box-archive"></i> {{__('Old Flight')}}
+                            type="button" role="tab" aria-controls="old_flight" aria-selected="true"><i class="fa-solid fa-box-archive"></i> {{__('Old Flight')}}
                     </button>
                 </li>
 
@@ -40,7 +40,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="flight_list" role="tabpanel"
                      aria-labelledby="flight_list-tab"> @include('admin.pages.flight.flight_list') </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel"
+                <div class="tab-pane fade" id="old_flight" role="tabpanel"
                      aria-labelledby="old_flight-tab">@include('admin.pages.flight.old_flight')</div>
             </div>
 
