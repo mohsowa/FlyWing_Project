@@ -68,10 +68,10 @@
                     <div class="row text-center">
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i></div>
-                            <select class="js-example-basic-multiple col form-control" name="origin" @if($flight->status == 'booking' ||  $flight->status == 'closed')disabled @endif  required>
+                            <select class="js-example-basic-multiple col form-control" disabled required>
                                 @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
                                     @if($flight->origin == $airport->code)
-                                    <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
+                                    <option value="{{$airport->code}}" selected> {{$airport->code}}, {{$airport->name}}
                                         , {{$airport->country}}</option>
                                     @else
                                         <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
@@ -84,14 +84,16 @@
 
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-plane-arrival"></i></div>
-                            <select class="js-example-basic-multiple col form-control" name="destination" @if($flight->status == 'booking' ||  $flight->status == 'closed')disabled @endif  required>
+                            <select class="js-example-basic-multiple col form-control" disabled required>
+                                @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
                                 @if($flight->destination == $airport->code)
-                                    <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
+                                    <option value="{{$airport->code}}" selected> {{$airport->code}}, {{$airport->name}}
                                         , {{$airport->country}}</option>
                                 @else
                                     <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
                                         , {{$airport->country}}</option>
                                 @endif
+                                @endforeach
                             </select>
                         </div>
                     </div>

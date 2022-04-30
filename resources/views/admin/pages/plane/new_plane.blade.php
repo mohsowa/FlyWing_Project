@@ -115,6 +115,26 @@
                                 <div class="col-3 text-center align-self-center"><i class="fa-solid fa-money-bill"></i></div>
                                 <input class="col form-control" type="number" name="EcoSeatsPrice" value="{{old('EcoPrice')}}" placeholder="{{__('Economy Class Price')}}" required>
                             </div>
+                            {{--wifi--}}
+                            <div class="row mb-3">
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-wifi"></i></div>
+                                <input class="col form-control" type="number" name="wifi" value="{{old('wifi')}}" placeholder="{{__('wifi Price')}}" required>
+                            </div>
+                            {{--food--}}
+                            <div class="row mb-3">
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-bowl-food"></i> </div>
+                                <input class="col form-control" type="number" name="food" value="{{old('food')}}" placeholder="{{__('Food Price')}}" required>
+                            </div>
+                            {{--calls--}}
+                            <div class="row mb-3">
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-phone"></i> </div>
+                                <input class="col form-control" type="number" name="calls" value="{{old('calls')}}" placeholder="{{__('Calls Price')}}" required>
+                            </div>
+                            {{--Luggage--}}
+                            <div class="row mb-3">
+                                <div class="col-3 text-center align-self-center"><i class="fa-solid fa-weight-scale"></i> </div>
+                                <input class="col form-control" type="number" name="luggage" value="{{old('luggage')}}" placeholder="{{__('Luggage Price')}}" required>
+                            </div>
                         </div>
 
 

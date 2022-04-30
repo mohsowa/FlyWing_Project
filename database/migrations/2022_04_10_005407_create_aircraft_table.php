@@ -28,6 +28,12 @@ class CreateAircraftTable extends Migration
             $table->integer('num_econ_class');
             $table->float('price_econ_class');
 
+            $table->float('price_wifi');
+            $table->float('price_calls');
+            $table->float('price_food');
+            $table->float('price_luggage');
+
+
             $table->timestamps();
         });
     }

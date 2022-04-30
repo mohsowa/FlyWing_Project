@@ -19,8 +19,13 @@ class CreateTicketsTable extends Migration
             $table->unsignedInteger('passenger_id');
             $table->foreign('passenger_id')->references('id')->on('passengers')->onDelete('cascade');
 
+            $table->unsignedInteger('flight_id');
+
+
+
             $table->string('Fname');
             $table->string('Lname');
+            $table->string('status');
             $table->date('date_of_birth');
             $table->string('sex');
 

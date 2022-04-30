@@ -109,8 +109,6 @@ class FlightController extends Controller
             'status' => $request['status'],
             'plane_id'  =>$request['plane_id']?: $flight->plane_id ,
             'date' => $request['date'],
-            'origin' => $request['origin']? : $flight->origin,
-            'destination' => $request['destination']? : $flight->destination,
             'departure_time' => $request['departure_time'],
             'arrival_time' => $request['arrival_time'],
             'updated_at' => new DateTime('now')
@@ -128,6 +126,7 @@ class FlightController extends Controller
      */
     public function destroy(Flight $flight)
     {
-        //
+        Flight::where('id' , $flight->id)->delete();
+        return redirect()->to('flight');
     }
 }

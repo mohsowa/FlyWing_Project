@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <a class="dropdown-item" href="#">{{__('User Profile')}}</a>
+                            <a class="dropdown-item" href="{{route('profile')}}">{{__('User Profile')}}</a>
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Ticket;
 use Auth;
 use Illuminate\Http\Request;
+use DateTime;
 
 class PaymentController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -30,7 +33,7 @@ class PaymentController extends Controller
 
 
         if($is_admin){
-            return view('passenger.pages.payments');
+            return view('admin.pages.payments');
         }
 
         return view('layouts.permission_view');
@@ -53,9 +56,60 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+
+    /**
+     * @throws \Exception
+     */
     public function store(Request $request)
     {
-        //
+
+        // info from $request
+        $name = $request['name'];
+        $expire = $request['expire'];
+        $ccv = $request['ccv'];
+        $card_n_1 = $request['card_n_1'];
+        $card_n_2 = $request['card_n_2'];
+        $card_n_3 = $request['card_n_3'];
+        $card_n_4 = $request['card_n_4'];
+        $card_number = "$card_n_1 $card_n_2 $card_n_3 $card_n_4";
+
+        //// This is temp code ////
+        $payment = Payment::create([
+            'operation_id' => random_int(100000,999999),
+            'bank' => 'Flywing Bank',
+            'company_name' => 'payment_api_provider',
+            'card_type' => 'visa',
+            'status' =>'accept',
+            'date' => new DateTime('now'),
+            'amount' => $request['amount'],
+            'created_at' => new DateTime('now'),
+            'updated_at' => new DateTime('now')
+        ]);
+
+        if($payment->status == 'accept'){
+
+            $user = Auth::user();
+            $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
+
+            if($is_passenger){
+                $passenger = \App\Models\Passenger::where('user_id',$user->id)->first();
+                Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->update([
+                    'status' => 'booked'
+                ]);
+
+
+                $message = __('Your payment is accepted.');
+                return view('layouts.success_view')->with(compact('message'));
+
+            }
+
+        }else{
+            $message = __('Sorry! We face a problem while proscribing yor payment.');
+            return view('layouts.error_view')->with(compact('message'));
+        }
+
     }
 
     /**

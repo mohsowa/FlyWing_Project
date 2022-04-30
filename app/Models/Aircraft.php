@@ -17,6 +17,10 @@ class Aircraft extends Model
         'price_bus_class',
         'num_econ_class',
         'price_econ_class',
+        'price_wifi',
+        'price_calls',
+        'price_food',
+        'price_luggage',
         'created_at',
         'updated_at'
     ];

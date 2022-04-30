@@ -72,6 +72,10 @@ class PlaneController extends Controller
             'price_bus_class' => $request['BusinessPrice'],
             'num_econ_class' => $request['EcoSeats'],
             'price_econ_class' => $request['EcoSeatsPrice'],
+            'price_wifi' => $request['wifi'],
+            'price_calls' => $request['calls'],
+            'price_food' => $request['food'],
+            'price_luggage' => $request['luggage'],
             'created_at' => new DateTime('now'),
             'updated_at' => new DateTime('now')
         ]);
@@ -140,6 +144,10 @@ class PlaneController extends Controller
             'price_bus_class' => $request['BusinessPrice'],
             'num_econ_class' => $request['EcoSeats'],
             'price_econ_class' => $request['EcoSeatsPrice'],
+            'price_wifi' => $request['wifi'],
+            'price_calls' => $request['calls'],
+            'price_food' => $request['food'],
+            'price_luggage' => $request['luggage'],
             'updated_at' => new DateTime('now')
         ]);
         $is_updated = true;

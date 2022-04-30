@@ -95,6 +95,11 @@ class PassengerController extends Controller
     public function update(Request $request, Passenger $passenger)
     {
         $this->middleware('auth');
+        Passenger::where('id' , $passenger->id)->update([
+            'sex' => $request['sex']? : $passenger->sex,
+            'date_of_birth' => $request['dob']? : $passenger->date_of_birth
+        ]);
+        return redirect()->back();
     }
 
     /**
