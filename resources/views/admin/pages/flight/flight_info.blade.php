@@ -153,6 +153,48 @@
 
         <hr>
 
+        <div class="container">
+            <div class="text-center py-4">
+                <h3><i class="fa-solid fa-ticket-simple"></i>
+                    {{__('The flight tickets')}}</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead class="bg-main rounded">
+
+
+                    <tr>
+
+                        <th scope="col">{{__('Ticket ID')}}</th>
+                        <th scope="col">{{__('Passenger ID')}}</th>
+                        <th scope="col">{{__('FirstName')}}</th>
+                        <th scope="col">{{__('LastName')}}</th>
+                        <th scope="col">{{__('Status')}}</th>
+                        <th scope="col">{{__('Class Type')}}</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach(\App\Models\Ticket::all() as $ticket)
+
+
+                            <th scope="row">{{$ticket->id}}</th>
+                            <td>{{$ticket->passenger_id}}</td>
+                            <td>{{$ticket->Fname}}</td>
+                            <td>{{$ticket->Lname}}</td>
+                            <td>{{$ticket->status}}</td>
+                            <td>{{$ticket->class_type}}</td>
+
+                        </tr>
+
+                    @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
 
     </div>

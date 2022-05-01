@@ -36,7 +36,7 @@ class HomeController extends Controller
 
         if($is_passenger === true){
             $this->middleware('auth');
-            return view('passenger.home');
+            return view('passenger.pages.dashboard');
         }
 
 

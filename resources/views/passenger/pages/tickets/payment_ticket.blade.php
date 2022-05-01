@@ -49,6 +49,7 @@
                             $flight = \App\Models\Flight::where('id',$ticket->flight_id)->first();
                             $aircraft = \App\Models\Aircraft::where('plane_id',$flight->plane_id)->first();
 
+
                             $local_Prise = 0;
                             if($ticket->type == 'economy'){
                                $local_Prise += $aircraft->price_econ_class;

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Aircraft;
 use App\Models\Flight;
 use App\Models\Luggage;
+use App\Models\Payment;
 use App\Models\Ticket;
+use App\Models\TicketForPayment;
 use Auth;
 use DateTime;
 use Illuminate\Http\Request;
@@ -19,20 +21,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
-        $is_admin = \App\Models\Admin::where('user_id',$user->id)->exists();
-
-        if($is_passenger){
-            return view('passenger.pages.tickets');
-        }
-
-
-        if($is_admin){
-            return view('admin.pages.tickets');
-        }
-
-        return view('admin.pages.tickets');
+        $this->middleware('auth');
+        return view('layouts.permission_view');
     }
 
     /**
@@ -55,9 +45,14 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store( Request $request){
+        $this->middleware('auth');
         $passenger = $request['passenger'];
-        $aircraft = Aircraft::where('plane_id',$request['flight_id'])->first();
-        $passenger_id = $request['passenger-id'];
+        $flight = Flight::where('id',$request['flight_id'])->first();
+        $aircraft = Aircraft::where('plane_id', $flight->plane_id)->first();
+
+        $user = Auth::user();
+        $passenger_id = \App\Models\Passenger::where('user_id',$user->id)->first()->id;
+
         for($i=0; $i < $passenger; $i++){
 
 
@@ -81,12 +76,11 @@ class TicketController extends Controller
             ]);
 
 
-
             \App\Models\Luggage::create([
                 'ticket_id' => $ticket->id,
                 'quantity' => $request["quantity-{$i}"],
                 'total_weight' =>$request["total_weight-{$i}"],
-                'total_price' => $request["quantity-{$i}"] * $request["quantity-{$i}"] * $aircraft->price_luggage,
+                'total_price' => $request["quantity-{$i}"] * $request["total_weight-{$i}"] * $aircraft->price_luggage,
                 'created_at' => new DateTime('now'),
                 'updated_at' => new DateTime('now')
             ]);
@@ -105,7 +99,12 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
+        $this->middleware('auth');
+        $ticket = Ticket::where('id',$ticket->id)->first();
+        $payment_id = TicketForPayment::where('ticket_id',$ticket->id)->first()->payment_id;
+        $payment = Payment::where('id', $payment_id)->first();
+        $flight = Flight::where('id', $ticket->flight_id)->first();
+        return view('passenger.pages.tickets')->with(compact('ticket','payment','flight'));
     }
 
     /**
@@ -139,6 +138,7 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        $this->middleware('auth');
         Ticket::where('id',$ticket->id)->delete();
         return redirect()->back();
     }

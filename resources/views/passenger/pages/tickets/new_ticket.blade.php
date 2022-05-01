@@ -66,8 +66,6 @@
                         <input type="text" name="passenger" value="{{$passengers}}" hidden>
                         <input type="number" name="flight_id" value="{{$flight->id}}" hidden>
                         <input type="text" name="class" value="{{$type}}" hidden>
-                        <input type="text" name="passenger-id" value="{{\App\Models\Passenger::where('user_id' , Auth::user()->id)->first()->id}}" hidden>
-
                         @for($i=0; $i < $passengers; $i++)
 
                             <div class="text-center py-4">
@@ -117,8 +115,8 @@
                                 {{-- Phone Number --}}
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i class="fa-solid fa-phone"></i></div>
-                                    <input type="number" name="PhoneNumber-{{$i}}" value="{{old('PhoneNumber')}}"
-                                           placeholder="{{__("e.g. +966512345678")}}" class="form-control col">
+                                    <input type="number" name="PhoneNumber-{{$i}}" minlength="10" maxlength="10" value="{{old('PhoneNumber')}}"
+                                           placeholder="{{__("e.g. 0512345678")}}" class="form-control col">
                                 </div>
                                 {{-- Gender --}}
                                 <div class="col-lg mb-3 row">

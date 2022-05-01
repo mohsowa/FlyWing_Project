@@ -32,20 +32,11 @@
                         <li class="nav-item">
                             <a class="@yield('payment-active','nav-link ')" href="{{ route('payment.index') }}"><i class="fa-solid fa-credit-card"></i>  <span>{{__('Payments')}}</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="@yield('ticket-active','nav-link ')" href="{{ route('ticket.index') }}"><i class="fa-solid fa-ticket"></i> <span>{{__('Tickets')}}</span></a>
-                        </li>
                     @endif
 
                     @if(DB::table('passengers')->where('user_id', Auth::user()->id)->exists())
                             <li class="nav-item">
                                 <a class="@yield('home-active','nav-link ')" href="/dashboard"><i class="fa-solid fa-gauge"></i>  <span>{{__('Dashboard')}}</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="@yield('payment-active','nav-link ')" href="{{ route('payment.index') }}"><i class="fa-solid fa-credit-card"></i>  <span>{{__('Payments')}}</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="@yield('ticket-active','nav-link ')" href="{{ route('ticket.index') }}"><i class="fa-solid fa-ticket"></i> <span>{{__('Tickets')}}</span></a>
                             </li>
                     @endif
 

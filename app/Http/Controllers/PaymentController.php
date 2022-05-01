@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flight;
 use App\Models\Payment;
 use App\Models\Ticket;
+use App\Models\TicketForPayment;
 use Auth;
 use Illuminate\Http\Request;
 use DateTime;
+
 
 class PaymentController extends Controller
 {
@@ -88,6 +91,8 @@ class PaymentController extends Controller
             'updated_at' => new DateTime('now')
         ]);
 
+
+
         if($payment->status == 'accept'){
 
             $user = Auth::user();
@@ -95,6 +100,24 @@ class PaymentController extends Controller
 
             if($is_passenger){
                 $passenger = \App\Models\Passenger::where('user_id',$user->id)->first();
+
+                foreach (\App\Models\Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->get() as $ticket){
+
+                    TicketForPayment::create([
+                        'payment_id' => $payment->id,
+                        'ticket_id' => $ticket->id
+                    ]);
+
+                }
+
+                $tickets = Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->get();
+
+                foreach($tickets as $ticket){
+                    $data = ['passenger' => $passenger, 'payment' =>$payment,'ticket' => $ticket];
+                    SendEmailController::send($data);
+                }
+
+
                 Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->update([
                     'status' => 'booked'
                 ]);

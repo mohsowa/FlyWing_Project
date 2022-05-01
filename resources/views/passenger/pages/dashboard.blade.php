@@ -20,16 +20,132 @@
         </div>
     </div>
 
+    {{-- Content Section--}}
+    <div class="container py-3" >
+        <div class="row">
 
-    <hr>
-    {{-- Operation Section Section--}}
-    @include('passenger.pages.tickets')
+            {{-- Ticket Section--}}
+            <div class="col-sm-12 col-md-12 col-lg-6 p-2 shadow-sm">
 
-    <hr>
-    <hr>
-    {{-- Payment history Section --}}
-    @include('passenger.pages.payments')
-    <hr>
+                <div class="text-center py-4">
+                    <h3><i class="fa-solid fa-ticket-simple"></i> {{__('Ticket')}}</h3>
+                </div>
+
+                @php
+                    $passenger = \App\Models\Passenger::where('user_id' , Auth::user()->id)->first();
+                    $passenger_ticket = \App\Models\Ticket::where('passenger_id' ,$passenger->id)->where('status','temp')->get();
+
+                @endphp
+                {{-- Complete booking--}}
+                @if($passenger_ticket->count() != 0)
+                    <div class="text-center">
+                        <a href="{{route('complete-payment')}}" class="btn btn-sm btn-block btn-primary-outline ">{{__('Complete booking Tickets')}}</a>
+                    </div>
+                    <hr>
+                @endif
+
+                {{-- Ticket table--}}
+                <div class="table-responsive">
+                    <table class="table table-borderless table-hover">
+                        <thead class="bg-main rounded">
+                        <tr>
+                            <th scope="col">{{__('Ticket ID')}}</th>
+                            <th scope="col">{{__('Flight ID')}}</th>
+                            <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('Status')}}</th>
+                            <th scope="col">{{__('Detail')}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach(\App\Models\Ticket::all() as $ticket)
+                            @if($ticket->passenger_id == $passenger->id and $ticket->status != 'temp')
+                                <tr>
+                                    <th scope="row">{{$ticket->id}}</th>
+                                    <td>{{$ticket->flight_id}}</td>
+                                    <td>{{$ticket->Lname}}, {{$ticket->Fname}}</td>
+                                    <td>{{$ticket->status}}</td>
+                                    <td>
+                                        <a href="{{route('ticket.show',$ticket)}}"
+                                           class="btn btn-primary-outline btn-sm btn-block">
+                                            <i class="fa-solid fa-eye"></i> {{__('View')}}
+                                        </a>
+                                    </td>
+
+
+                                    @endif
+                                </tr>
+                                @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+
+           {{-- Payment Section--}}
+           <div class="col-sm-12 col-md-12 col-lg-6 p-2 shadow-sm">
+
+               <div class="text-center py-4">
+                   <h3><i class="fa-solid fa-credit-card"></i> {{__('Payment')}}</h3>
+               </div>
+
+               {{-- Info Section--}}
+               <div class="table-responsive">
+                   <table class="table table-borderless table-hover">
+                       <thead class="bg-main rounded">
+
+
+                       <tr>
+
+                           <th scope="col">{{__('Payment ID')}}</th>
+                           <th scope="col">{{__('Operation ID')}}</th>
+                           <th scope="col">{{__('Ticket ID')}}</th>
+                           <th scope="col">{{__('Status')}}</th>
+                           <th scope="col">{{__('Amount')}}</th>
+
+                       </tr>
+                       </thead>
+                       <tbody>
+
+                       @foreach(\App\Models\Payment::all() as $payment)
+
+                           @php
+                                $passenger = \App\Models\Passenger::where('user_id' , Auth::user()->id)->first();
+                                $temp = \App\Models\TicketForPayment::where('payment_id', $payment->id)->first();
+                                $ticket = \App\Models\Ticket::where('id',$temp->ticket_id)->first();
+                           @endphp
+
+                           @if($ticket->passenger_id == $passenger->id)
+                           <tr>
+                               <th scope="row">{{$payment->id}}</th>
+                               <td>{{$payment->operation_id}}</td>
+                               <td>{{$ticket->id}}</td>
+                               <td>{{$payment->status}}</td>
+                               <td>{{$payment->amount}} SAR</td>
+
+                           </tr>
+                           @endif
+
+                       @endforeach
+
+                       </tbody>
+                   </table>
+               </div>
+
+
+
+
+           </div>
+
+
+        </div>
+    </div>
+
+
+
 
 
 @endsection

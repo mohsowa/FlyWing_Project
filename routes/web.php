@@ -134,3 +134,8 @@ Route::get('/Special_Services', function () {
 Route::get('/Terms_Conditions', function () {
     return view('layout.__config.terms_conditions');
 });
+
+
+// for email
+Route::get('/sendemail', 'SendEmailController@index');
+Route::post('/sendemail/send', 'SendEmailController@send');

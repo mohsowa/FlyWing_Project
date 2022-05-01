@@ -108,11 +108,10 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
-
-        'paths' => [
-            resource_path('views/vendor/mail'),
-        ],
+        'theme' => 'default',            # The name of your theme (default.css)
+        'paths' => [                     # The path to your /html and /text dirs
+            resource_path('views/emails/layouts')
+        ]
     ],
 
 ];

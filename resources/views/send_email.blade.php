@@ -1,31 +1,30 @@
-@extends('passenger.home')
 
-{{-- Cange Page title --}}
-@section('sub_page_name')
-    {{__('Ticket Info')}}
-@endsection
-
-{{-- Content --}}
-@section('service-content')
-
-    <div class="container">
-
-        {{-- Payment Dashboard--}}
-        <div class="row py4">
-            <div class="col-sm-12 col-md-6 text-center align-self-center">
-                <div class="align-self-center">
-                    <h1>{{__('Tickets Info')}}</h1>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 text-center p-3">
-                <img src="{{asset('/src/images/ticket.png')}}" style="width: 50vw;" class="img-fluid">
-            </div>
-        </div>
+<html lang="{{config('app.locale')}}" dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
 
 
+</head>
+
+<body style="border-radius: 25px;">
+<div style="padding: 3%;">
+    <div style="position: center;">
+        <img src="{{ asset('src/logo/logo.png') }}" alt="Logo" id="nav-logo" style="max-height: 20px">
+    </div>
+
+
+    <div class="py-4">
+            <h1 class="h1">{{__('Ticket Info')}}</h1>
+    </div>
+
+    <div class="container m-2">
 
         <div class="container py-4 bg-main  rounded-3">
-            <div class="m-3 row text-white">
+            <div class="m-3 row text-white" style="padding: 1rem;">
 
                 <div class="col-sm-12 col-md-12 col-lg-6">
                     <div class="text-blue py-3">
@@ -131,4 +130,15 @@
     </div>
 
 
-@endsection
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
