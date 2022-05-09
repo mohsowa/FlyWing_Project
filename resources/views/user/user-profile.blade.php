@@ -94,7 +94,7 @@
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i
                                             class="fa-solid fa-at"></i></div>
-                                    <a href="#" class="col btn btn-warning">{{__('Verify your email')}}</a>
+                                    <a href="{{route('verification.notice')}}" class="col btn btn-warning">{{__('Verify your email')}}</a>
                                 </div>
                             @endif
 

@@ -78,7 +78,7 @@
 
                     {{-- Ticket ID--}}
                     <div class="row">
-                        <h6 class="col-4 text-white">{{__('Flight ID')}}</h6>
+                        <h6 class="col-4 text-white">{{__('Ticket ID')}}</h6>
                         <div class="col text-white-50">{{$ticket->id}}</div>
                     </div>
 
@@ -127,6 +127,16 @@
 
                 </div>
             </div>
+        </div>
+        <hr>
+        <div>
+            <div class="text-danger m-3">{{__('Note')}} | {{__('When delete, your ticket price will not returned to you!')}}</div>
+            <form method="POST" action="{{route('ticket.update',$ticket)}}">
+                @csrf
+                @method('PUT')
+                <input type="text" name="status" value="deleted" hidden>
+                <button type="submit" class="btn btn-block btn-danger"><i class="fa-solid fa-trash-can"></i> {{__('Delete Ticket')}}</button>
+            </form>
         </div>
     </div>
 

@@ -45,6 +45,7 @@
                 @endif
 
                 {{-- Ticket table--}}
+                @if(\App\Models\Ticket::where('passenger_id' ,$passenger->id)->get()->count() != 0)
                 <div class="table-responsive">
                     <table class="table table-borderless table-hover">
                         <thead class="bg-main rounded">
@@ -59,7 +60,7 @@
                         <tbody>
 
                         @foreach(\App\Models\Ticket::all() as $ticket)
-                            @if($ticket->passenger_id == $passenger->id and $ticket->status != 'temp')
+                            @if($ticket->passenger_id == $passenger->id and $ticket->status != 'temp' and $ticket->status != 'deleted')
                                 <tr>
                                     <th scope="row">{{$ticket->id}}</th>
                                     <td>{{$ticket->flight_id}}</td>
@@ -72,7 +73,6 @@
                                         </a>
                                     </td>
 
-
                                     @endif
                                 </tr>
                                 @endforeach
@@ -80,6 +80,11 @@
                         </tbody>
                     </table>
                 </div>
+                @else
+                    <div class="text-center">
+                        {{__('No data is found')}}
+                    </div>
+                @endif
 
 
 
@@ -93,6 +98,7 @@
                </div>
 
                {{-- Info Section--}}
+
                <div class="table-responsive">
                    <table class="table table-borderless table-hover">
                        <thead class="bg-main rounded">

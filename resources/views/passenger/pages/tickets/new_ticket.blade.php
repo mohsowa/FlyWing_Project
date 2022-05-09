@@ -96,7 +96,7 @@
                                 {{-- National ID --}}
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i class="fa-solid fa-id-card"></i></div>
-                                    <input type="number" maxlength="10" minlength="10" name="nationalID-{{$i}}"
+                                    <input type="number" maxlength="10" minlength="10" max="9999999999" name="nationalID-{{$i}}"
                                            value="{{old('nationalID')}}" placeholder="{{__("National ID")}}"
                                            class="form-control col" required>
                                 </div>
@@ -116,12 +116,12 @@
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i class="fa-solid fa-phone"></i></div>
                                     <input type="number" name="PhoneNumber-{{$i}}" minlength="10" maxlength="10" value="{{old('PhoneNumber')}}"
-                                           placeholder="{{__("e.g. 0512345678")}}" class="form-control col">
+                                           placeholder="{{__("e.g. 0512345678")}}" class="form-control col" required>
                                 </div>
                                 {{-- Gender --}}
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i class="fa-solid fa-venus-mars"></i></div>
-                                    <select name="sex-{{$i}}" class="col form-control js-example-basic-multiple">
+                                    <select name="sex-{{$i}}" class="col form-control js-example-basic-multiple" required>
                                         <option value="select" disabled selected>{{__('Select Sex')}}</option>
                                         <option value="male" >{{__('Male')}}</option>
                                         <option value="female" >{{__('Female')}}</option>

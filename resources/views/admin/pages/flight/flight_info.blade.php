@@ -154,6 +154,45 @@
         <hr>
 
         <div class="container">
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead class="bg-main rounded">
+
+
+                    <tr>
+
+                        <th scope="col">{{__('Total Seats')}}</th>
+                        <th scope="col">{{__('Booked Seats')}}</th>
+                        <th scope="col">{{__('Available Seats')}}</th>
+                        <th scope="col">{{__('Wait-list Seats')}}</th>
+                        <th scope="col">{{__('AVG Booking')}}</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+
+                            <td>{{$total = ($aircraft->num_bus_class + $aircraft->num_econ_class + $aircraft->num_first_class)}}</td>
+                            <td>{{$total_booked = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','booked')->get()->count()}}</td>
+                            <td>{{$total_av = $total - $total_booked}}</td>
+                            <td>{{$total_wl = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','wait-list')->get()->count()}}</td>
+                            <td>{{$avg_booking = $total_booked/$total *100 }} %</td>
+
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container">
             <div class="text-center py-4">
                 <h3><i class="fa-solid fa-ticket-simple"></i>
                     {{__('The flight tickets')}}</h3>
@@ -179,12 +218,12 @@
                     @foreach(\App\Models\Ticket::all() as $ticket)
 
 
-                            <th scope="row">{{$ticket->id}}</th>
-                            <td>{{$ticket->passenger_id}}</td>
-                            <td>{{$ticket->Fname}}</td>
-                            <td>{{$ticket->Lname}}</td>
-                            <td>{{$ticket->status}}</td>
-                            <td>{{$ticket->class_type}}</td>
+                        <th scope="row">{{$ticket->id}}</th>
+                        <td>{{$ticket->passenger_id}}</td>
+                        <td>{{$ticket->Fname}}</td>
+                        <td>{{$ticket->Lname}}</td>
+                        <td>{{$ticket->status}}</td>
+                        <td>{{$ticket->class_type}}</td>
 
                         </tr>
 
@@ -194,6 +233,7 @@
                 </table>
             </div>
         </div>
+
 
 
 

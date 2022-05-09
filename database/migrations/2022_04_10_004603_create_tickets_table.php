@@ -30,7 +30,7 @@ class CreateTicketsTable extends Migration
             $table->string('sex');
 
             $table->string('phone');
-            $table->integer('gov_id');
+            $table->string('gov_id');
             $table->string('passport_no')->nullable();
 
             $table->string('class_type');

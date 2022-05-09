@@ -53,6 +53,18 @@ class TicketController extends Controller
         $user = Auth::user();
         $passenger_id = \App\Models\Passenger::where('user_id',$user->id)->first()->id;
 
+        $status = $request["status"];
+        $total = ($aircraft->num_bus_class + $aircraft->num_econ_class + $aircraft->num_first_class);
+        $total_booked = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','booked')->get()->count();
+        $total_av = $total - $total_booked;
+
+        $return_home = false;
+        // chick for wait-list
+        if($passenger > $total_av){
+            $return_home = true;
+            $status = 'wait-list';
+        }
+
         for($i=0; $i < $passenger; $i++){
 
 
@@ -61,7 +73,7 @@ class TicketController extends Controller
                 'flight_id'=> $request['flight_id'],
                 'Fname' =>$request["FirstName-{$i}"],
                 'Lname' =>$request["LastName-{$i}"],
-                'status' => $request["status"],
+                'status' => $status,
                 'date_of_birth' => $request["dob-{$i}"],
                 'sex' => $request["sex-{$i}"],
                 'phone' =>$request["PhoneNumber-{$i}"],
@@ -86,6 +98,9 @@ class TicketController extends Controller
             ]);
 
         }
+        if($return_home){
+            return redirect()->to('dashboard');
+        }
         return redirect()->to('complete-payment');
 
     }
@@ -104,6 +119,10 @@ class TicketController extends Controller
         $payment_id = TicketForPayment::where('ticket_id',$ticket->id)->first()->payment_id;
         $payment = Payment::where('id', $payment_id)->first();
         $flight = Flight::where('id', $ticket->flight_id)->first();
+
+        if($ticket->status == 'temp' or $ticket->status == 'deleted'){
+            return view('layouts.permission_view');
+        }
         return view('passenger.pages.tickets')->with(compact('ticket','payment','flight'));
     }
 
@@ -115,7 +134,7 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        //
+
     }
 
     /**
@@ -127,7 +146,13 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
+        Ticket::where('id', $ticket->id)->update([
+            'status' => $request['status'],
+            'updated_at' => new DateTime('now')
+        ]);
+        $message = __('Your ticket is deleted successfully.');
+        return view('layouts.success_view')->with(compact('message'));
+
     }
 
     /**

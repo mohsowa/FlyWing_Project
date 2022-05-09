@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'flywing') }} | @yield('page_title','Welcome')</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('src/logo/logo_icon.svg')}}">
 
     <!-- Scripts -->
     <script type="module">

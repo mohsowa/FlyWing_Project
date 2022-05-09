@@ -18,7 +18,8 @@
 
 
     <div class="py-4">
-            <h1 class="h1">{{__('Ticket Info')}}</h1>
+            <h3 class="h1">{{__('Ticket Info')}}</h3>
+        <div>{{__('Your ticket has been booked successfully')}}</div>
     </div>
 
     <div class="container m-2">

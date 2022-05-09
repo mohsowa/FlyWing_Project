@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light">
+<nav class="navbar navbar-expand-sm navbar-light" style="direction: ltr;">
     <div class="container">
         <a class="navbar-brand" href="/">
 

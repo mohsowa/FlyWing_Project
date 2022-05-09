@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aircraft;
 use App\Models\Flight;
 use App\Models\Plane;
 use Illuminate\Http\Request;
@@ -79,7 +80,8 @@ class FlightController extends Controller
 
         if((DB::table('admins')->where('user_id', Auth::user()->id)->exists())){
             $is_updated = false;
-            return view('admin.pages.flight.flight_info')->with(compact('flight','is_updated'));
+            $aircraft = Aircraft::where('plane_id',$flight->plane_id)->first();
+            return view('admin.pages.flight.flight_info')->with(compact('flight','is_updated','aircraft'));
         }else{
             return view('layouts.permission_view');
         }
@@ -114,8 +116,9 @@ class FlightController extends Controller
             'updated_at' => new DateTime('now')
         ]);
         $flight = Flight::where('id',$flight->id)->first();
+        $aircraft = Aircraft::where('plane_id',$flight->plane_id)->first();
         $is_updated = true;
-        return view('admin.pages.flight.flight_info')->with(compact('flight','is_updated'));
+        return view('admin.pages.flight.flight_info')->with(compact('flight','is_updated','aircraft'));
     }
 
     /**
