@@ -215,7 +215,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach(\App\Models\Ticket::all() as $ticket)
+                    @foreach(\App\Models\Ticket::where('flight_id',$flight->id)->get() as $ticket)
 
 
                         <th scope="row">{{$ticket->id}}</th>
