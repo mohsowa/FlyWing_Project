@@ -165,6 +165,8 @@
                         <th scope="col">{{__('Booked Seats')}}</th>
                         <th scope="col">{{__('Available Seats')}}</th>
                         <th scope="col">{{__('Wait-list Seats')}}</th>
+                        <th scope="col">{{__('Not-Confirmed Seats')}}</th>
+                        <th scope="col">{{__('Canceled Seats')}}</th>
                         <th scope="col">{{__('AVG Booking')}}</th>
 
 
@@ -172,15 +174,26 @@
                     </thead>
                     <tbody>
 
+
                         <tr>
-
                             <td>{{$total = ($aircraft->num_bus_class + $aircraft->num_econ_class + $aircraft->num_first_class)}}</td>
+
+                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'booked' ; --}}
                             <td>{{$total_booked = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','booked')->get()->count()}}</td>
+
                             <td>{{$total_av = $total - $total_booked}}</td>
+
+                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'wait-list' ; --}}
                             <td>{{$total_wl = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','wait-list')->get()->count()}}</td>
+
+                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'deleted' ; --}}
+                            <td>{{$total_temp = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','temp')->get()->count()}}</td>
+
+                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'deleted' ; --}}
+                            <td>{{$total_cl = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','deleted')->get()->count()}}</td>
+
+
                             <td>{{$avg_booking = $total_booked/$total *100 }} %</td>
-
-
                         </tr>
 
 

@@ -77,7 +77,6 @@ class FlightController extends Controller
      */
     public function show(Flight $flight)
     {
-
         if((DB::table('admins')->where('user_id', Auth::user()->id)->exists())){
             $is_updated = false;
             $aircraft = Aircraft::where('plane_id',$flight->plane_id)->first();

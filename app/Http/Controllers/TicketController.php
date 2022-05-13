@@ -165,7 +165,7 @@ class TicketController extends Controller
     {
         $this->middleware('auth');
         Ticket::where('id',$ticket->id)->delete();
-        return redirect()->back();
+        return redirect()->to('dashboard');
     }
 
 }

@@ -7,8 +7,13 @@
 
     {{-- Card Sectiom --}}
     <div class="card-deck card-columns p-2 row justify-content-center">
+        {{-- select * from Flight where status ='booking' --}}
+        @php
+        $i = 0;
+        @endphp
         @foreach(\App\Models\Flight::all() as $flight)
-            @if($flight->status == 'booking')
+            @if($flight->status == 'booking' and $i < 10)
+                @php $i++ @endphp
             <div class="card card-ticket col-sm-12 text-center m-2">
                 <div class="py-2 row">
                     <div class="col-sm-12 col-md-12 col-lg-8 row justify-content-center align-self-center">

@@ -11,6 +11,7 @@
         </tr>
         </thead>
         <tbody>
+        {{-- select * from Flight where status = 'new '  or status = 'booking'; --}}
         @foreach(\App\Models\Flight::all() as $flight)
             @if($flight->status == 'new' or $flight->status == 'booking')
 
