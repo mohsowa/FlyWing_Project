@@ -12,7 +12,7 @@
         $i = 0;
         @endphp
         @foreach(\App\Models\Flight::all() as $flight)
-            @if($flight->status == 'booking' and $i < 10)
+            @if($flight->status == 'booking' and $i < 5)
                 @php $i++ @endphp
             <div class="card card-ticket col-sm-12 text-center m-2">
                 <div class="py-2 row">

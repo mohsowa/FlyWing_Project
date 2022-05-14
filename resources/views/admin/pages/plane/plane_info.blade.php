@@ -239,6 +239,41 @@
                             <div class="col-3 text-center align-self-center"><i class="fa-solid fa-money-bill"></i></div>
                             <input class="col form-control-dark text-black-50 form-control" value="{{$aircraft->price_econ_class}}" type="text" name="EcoSeatsPrice" value="{{old('EcoPrice')}}" placeholder="{{__('Economy Class Price')}}" required>
                         </div>
+
+
+                        <div class="text-center">
+                            <hr style="margin: auto;">
+                        </div>
+
+
+                        <div class="text-black-50 text-center mb-3 m-1">
+                            {{__('Services Price')}}
+                        </div>
+
+                        {{--Wifi--}}
+                        <div class="row mb-3">
+                            <div class="col-3 text-center align-self-center"><i class="fa-solid fa-wifi"></i></div>
+                            <input class="col form-control-dark text-black-50 form-control" value="{{$aircraft->price_wifi}}" type="text" name="wifi" value="{{old('wifi')}}" placeholder="{{__('WIFI Price')}}" required>
+                        </div>
+
+                        {{--food--}}
+                        <div class="row mb-3">
+                            <div class="col-3 text-center align-self-center"><i class="fa-solid fa-bowl-food"></i></div>
+                            <input class="col form-control-dark text-black-50 form-control" value="{{$aircraft->price_food}}" type="text" name="food" value="{{old('food')}}" placeholder="{{__('Food Price')}}" required>
+                        </div>
+
+                        {{--calls--}}
+                        <div class="row mb-3">
+                            <div class="col-3 text-center align-self-center"><i class="fa-solid fa-phone"></i></div>
+                            <input class="col form-control-dark text-black-50 form-control" value="{{$aircraft->price_calls}}" type="text" name="calls" value="{{old('calls')}}" placeholder="{{__('Calls Price')}}" required>
+                        </div>
+
+                        {{--luggage--}}
+                        <div class="row mb-3">
+                            <div class="col-3 text-center align-self-center"><i class="fa-solid fa-briefcase"></i></div>
+                            <input class="col form-control-dark text-black-50 form-control" value="{{$aircraft->price_luggage}}" type="text" name="luggage" value="{{old('luggage')}}" placeholder="{{__('Luggage Price')}}" required>
+                        </div>
+
                     </div>
 
 
