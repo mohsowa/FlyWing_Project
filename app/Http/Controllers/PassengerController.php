@@ -48,7 +48,6 @@ class PassengerController extends Controller
      */
     public function store(Request $request)
     {
-        dd('here');
         Passenger::create([
             "user_id" => $request->get('user_id'),
             'created_at' => new DateTime('now'),

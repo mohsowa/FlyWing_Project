@@ -138,6 +138,15 @@ Route::get('complete-payment' ,function (){
     }
 })->middleware('auth')->name('complete-payment');;
 
+Route::post('/change_name',function (Request $request){
+    $user = Auth::user();
+    \App\Models\User::where('id',$user->id)->update([
+        'Fname' =>$request['Fname'],
+        'Lname' =>$request['Lname'],
+        'updated_at' => new DateTime('now')
+    ]);
+    return Redirect::back();
+})->middleware('auth')->name('change_name');
 
 // Footer
 Route::get('/FAQ', function () {

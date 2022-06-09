@@ -107,9 +107,9 @@
 
 
                     {{--Change Name--}}
-                    <form method="POST" action="" autocomplete="off">
+                    <form method="POST" action="{{route('change_name')}}" autocomplete="off">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         <div class="row text-center">
 
                             {{-- First Name --}}
@@ -137,8 +137,7 @@
 
                     </form>
 
-                    <br>
-                    <hr>
+
 
 
                     {{--Passenger Info--}}
@@ -175,43 +174,12 @@
 
                         </form>
 
-                        <br>
-                        <hr>
+
                     @endif
 
                     {{--Change Password--}}
-                    <form method="POST" action="" autocomplete="off">
-                        @csrf
-                        @method('PUT')
-                        <div class="row text-center">
+                    {{----}}
 
-                            {{-- Password --}}
-                            <div class="col-lg mb-3 row">
-                                <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
-                                <input type="password" name="password"
-                                       class="form-control col @error('password') is-invalid @enderror"
-                                       placeholder="{{ __('Password') }}" autocomplete="new-password" required>
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            {{-- Confirm --}}
-                            <div class="col-lg mb-3 row">
-                                <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
-                                <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}"
-                                       name="password_confirmation" autocomplete="new-password" class="form-control col"
-                                       required>
-                            </div>
-                        </div>
-
-                        <div>
-                            <button class="btn btn-danger btn-block" type="submit"><i
-                                    class="fa-solid fa-pencil"></i> {{__('Change Password')}}</button>
-                        </div>
-                    </form>
 
 
                 </div>
@@ -220,3 +188,39 @@
 
 @endsection
 
+        @section('chang-password')
+            <br>
+            <hr>
+        <form method="POST" action="" autocomplete="off">
+            @csrf
+            @method('PUT')
+            <div class="row text-center">
+
+                {{-- Password --}}
+                <div class="col-lg mb-3 row">
+                    <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
+                    <input type="password" name="password"
+                           class="form-control col @error('password') is-invalid @enderror"
+                           placeholder="{{ __('Password') }}" autocomplete="new-password" required>
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                </div>
+
+                {{-- Confirm --}}
+                <div class="col-lg mb-3 row">
+                    <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
+                    <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}"
+                           name="password_confirmation" autocomplete="new-password" class="form-control col"
+                           required>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-danger btn-block" type="submit"><i
+                        class="fa-solid fa-pencil"></i> {{__('Change Password')}}</button>
+            </div>
+        </form>
+        @endsection
