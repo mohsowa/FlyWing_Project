@@ -1,3 +1,4 @@
+@php use App\Models\Flight; @endphp
 <div class="container table-responsive py-3">
     <table class="table table-borderless table-hover">
         <thead class="bg-main rounded">
@@ -11,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach(\App\Models\Flight::all() as $flight)
+        @foreach(Flight::all() as $flight)
             @if($flight->status == 'closed')
 
                 <tr>
@@ -21,7 +22,8 @@
                     <td>{{$flight->destination}}</td>
                     <td>{{$flight->date}}</td>
                     <td>
-                        <a href="{{route('flight.show',$flight->id)}}" class="btn btn-primary-outline btn-sm btn-block"><i class="fa-solid fa-eye"></i> {{__('View')}}</a>
+                        <a href="{{route('flight.show',$flight->id)}}" class="btn btn-primary-outline btn-sm btn-block"><i
+                                    class="fa-solid fa-eye"></i> {{__('View')}}</a>
                     </td>
                 </tr>
 

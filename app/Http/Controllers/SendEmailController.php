@@ -17,7 +17,7 @@ class SendEmailController extends Controller
     function send($data)
     {
         $email = Auth::user()->email;
-        Mail::to("$email")->send(new SendMail($data));
+        //Mail::to("$email")->send(new SendMail($data));
 
 
     }

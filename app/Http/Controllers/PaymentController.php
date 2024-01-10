@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Flight;
+use App\Models\Passenger;
 use App\Models\Payment;
 use App\Models\Ticket;
 use App\Models\TicketForPayment;
 use Auth;
+use Exception;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Http\Response;
 
 
 class PaymentController extends Controller
@@ -22,13 +26,13 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $user = Auth::user();
-        $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
-        $is_admin = \App\Models\Admin::where('user_id',$user->id)->exists();
+        $is_passenger = Passenger::where('user_id',$user->id)->exists();
+        $is_admin = Admin::where('user_id',$user->id)->exists();
 
         if($is_passenger){
             return view('passenger.pages.payments');
@@ -46,7 +50,7 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -56,14 +60,14 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
 
 
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(Request $request)
     {
@@ -96,12 +100,12 @@ class PaymentController extends Controller
         if($payment->status == 'accept'){
 
             $user = Auth::user();
-            $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
+            $is_passenger = Passenger::where('user_id',$user->id)->exists();
 
             if($is_passenger){
-                $passenger = \App\Models\Passenger::where('user_id',$user->id)->first();
+                $passenger = Passenger::where('user_id',$user->id)->first();
 
-                foreach (\App\Models\Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->get() as $ticket){
+                foreach (Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->get() as $ticket){
 
                     TicketForPayment::create([
                         'payment_id' => $payment->id,
@@ -111,10 +115,10 @@ class PaymentController extends Controller
                 }
 
                 $tickets = Ticket::where('passenger_id', $passenger->id)->where('status' , 'temp')->get();
-
+                $sendEmailController = new SendEmailController();
                 foreach($tickets as $ticket){
                     $data = ['passenger' => $passenger, 'payment' =>$payment,'ticket' => $ticket];
-                    SendEmailController::send($data);
+                    $sendEmailController->send($data);
                 }
 
 
@@ -138,8 +142,8 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @param Payment $payment
+     * @return Response
      */
     public function show(Payment $payment)
     {
@@ -149,8 +153,8 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @param Payment $payment
+     * @return Response
      */
     public function edit(Payment $payment)
     {
@@ -160,9 +164,9 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Payment $payment
+     * @return Response
      */
     public function update(Request $request, Payment $payment)
     {
@@ -172,8 +176,8 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @param Payment $payment
+     * @return Response
      */
     public function destroy(Payment $payment)
     {

@@ -6,6 +6,7 @@ use App\Models\Passenger;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Mockery\Generator\StringManipulation\Pass\Pass;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -18,7 +19,7 @@ class PassengerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -33,7 +34,7 @@ class PassengerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -43,8 +44,8 @@ class PassengerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -59,8 +60,8 @@ class PassengerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Passenger  $passenger
-     * @return \Illuminate\Http\Response
+     * @param Passenger $passenger
+     * @return Response
      */
     public function show(Passenger $passenger)
     {
@@ -76,8 +77,8 @@ class PassengerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Passenger  $passenger
-     * @return \Illuminate\Http\Response
+     * @param Passenger $passenger
+     * @return Response
      */
     public function edit(Passenger $passenger)
     {
@@ -87,9 +88,9 @@ class PassengerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Passenger  $passenger
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Passenger $passenger
+     * @return Response
      */
     public function update(Request $request, Passenger $passenger)
     {
@@ -104,8 +105,8 @@ class PassengerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Passenger  $passenger
-     * @return \Illuminate\Http\Response
+     * @param Passenger $passenger
+     * @return Response
      */
     public function destroy(Passenger $passenger)
     {

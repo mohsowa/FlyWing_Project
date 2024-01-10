@@ -1,3 +1,6 @@
+@php use App\Http\Controllers\AirportsController; @endphp
+@php use App\Models\Plane; @endphp
+@php use App\Models\Ticket; @endphp
 @extends('admin.home')
 
 {{-- Cange Page title --}}
@@ -16,14 +19,16 @@
     <div class="container py-3">
         {{-- Image Section--}}
         <div class="text-center py-5">
-            <img src="{{asset('/src/images/world.png')}}" style="width: 30rem;"  class="img-fluid">
+            <img src="{{asset('/src/images/world.png')}}" style="width: 30rem;" class="img-fluid">
             <div class="text-center py-5">
                 <h1>{{__('Flight Info')}}</h1>
 
-                <form method="POST" action="{{route('flight.destroy',$flight)}}" onsubmit="return confirm('{{__('Are you sure you want to delete this flight? ')}}')">
+                <form method="POST" action="{{route('flight.destroy',$flight)}}"
+                      onsubmit="return confirm('{{__('Are you sure you want to delete this flight? ')}}')">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn col-4 btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> {{__('Delete')}}</button>
+                    <button type="submit" class="btn col-4 btn-outline-danger btn-sm"><i
+                                class="fa-solid fa-trash-can"></i> {{__('Delete')}}</button>
                 </form>
 
             </div>
@@ -40,7 +45,8 @@
 
         <div class="container bg-main">
             <div class="container py-4 p-4">
-                <form method="POST" action="{{ route('flight.update',$flight)}}" autocomplete="off" onsubmit="return chickFlight(this)">
+                <form method="POST" action="{{ route('flight.update',$flight)}}" autocomplete="off"
+                      onsubmit="return chickFlight(this)">
                     @csrf
                     @method('PATCH')
 
@@ -48,17 +54,22 @@
 
                         {{-- ID --}}
                         <div class="col-lg mb-3 row">
-                            <div class="col-3 align-self-center disabled-3"><i class="fa-solid fa-fingerprint"></i></div>
-                            <input type="text" name="id" value="{{$flight->id}}" class="form-control col" style="background-color: rgba(255,255,255,0.3); pointer-events: none;"  required>
+                            <div class="col-3 align-self-center disabled-3"><i class="fa-solid fa-fingerprint"></i>
+                            </div>
+                            <input type="text" name="id" value="{{$flight->id}}" class="form-control col"
+                                   style="background-color: rgba(255,255,255,0.3); pointer-events: none;" required>
                         </div>
 
                         {{-- Plane --}}
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center"><i class="fa-solid fa-check-double"></i></div>
                             <select name="status" class="col form-control js-example-basic-multiple" required>
-                                <option value="new" @if($flight->status == 'new') selected @endif @if($flight->status == 'booking' ||  $flight->status == 'closed')disabled @endif>{{__('New')}}</option>
-                                <option value="booking" @if($flight->status == 'booking') selected @endif>{{__('Booking')}}</option>
-                                <option value="closed" @if($flight->status == 'closed') selected @endif>{{__('Closed')}}</option>
+                                <option value="new" @if($flight->status == 'new') selected
+                                        @endif @if($flight->status == 'booking' ||  $flight->status == 'closed')disabled @endif>{{__('New')}}</option>
+                                <option value="booking"
+                                        @if($flight->status == 'booking') selected @endif>{{__('Booking')}}</option>
+                                <option value="closed"
+                                        @if($flight->status == 'closed') selected @endif>{{__('Closed')}}</option>
                             </select>
                         </div>
 
@@ -69,10 +80,11 @@
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i></div>
                             <select class="js-example-basic-multiple col form-control" disabled required>
-                                @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
+                                @foreach(AirportsController::getAirportsInfo() as $airport)
                                     @if($flight->origin == $airport->code)
-                                    <option value="{{$airport->code}}" selected> {{$airport->code}}, {{$airport->name}}
-                                        , {{$airport->country}}</option>
+                                        <option value="{{$airport->code}}" selected> {{$airport->code}}
+                                            , {{$airport->name}}
+                                            , {{$airport->country}}</option>
                                     @else
                                         <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
                                             , {{$airport->country}}</option>
@@ -83,16 +95,18 @@
                         </div>
 
                         <div class="col-lg mb-3 row">
-                            <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-plane-arrival"></i></div>
+                            <div class="col-3 align-self-center" for="origin"><i class="fa-solid fa-plane-arrival"></i>
+                            </div>
                             <select class="js-example-basic-multiple col form-control" disabled required>
-                                @foreach(\App\Http\Controllers\AirportsController::getAirportsInfo() as $airport)
-                                @if($flight->destination == $airport->code)
-                                    <option value="{{$airport->code}}" selected> {{$airport->code}}, {{$airport->name}}
-                                        , {{$airport->country}}</option>
-                                @else
-                                    <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
-                                        , {{$airport->country}}</option>
-                                @endif
+                                @foreach(AirportsController::getAirportsInfo() as $airport)
+                                    @if($flight->destination == $airport->code)
+                                        <option value="{{$airport->code}}" selected> {{$airport->code}}
+                                            , {{$airport->name}}
+                                            , {{$airport->country}}</option>
+                                    @else
+                                        <option value="{{$airport->code}}"> {{$airport->code}}, {{$airport->name}}
+                                            , {{$airport->country}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -109,14 +123,17 @@
                         {{-- Plane --}}
                         <div class="col-lg mb-3 row">
                             <div class="col-3 align-self-center"><i class="fa-solid fa-plane"></i></div>
-                            <select name="plane_id" class="col form-control js-example-basic-multiple" disabled required>
-                                @foreach(\App\Models\Plane::all() as $plane)
+                            <select name="plane_id" class="col form-control js-example-basic-multiple" disabled
+                                    required>
+                                @foreach(Plane::all() as $plane)
                                     @if($plane->status == 'active')
                                         @if($flight->plane_id == $plane->id)
-                                        <option value="{{$plane->id}}" selected>{{$plane->id}}, {{$plane->aircraft_type}}</option>
+                                            <option value="{{$plane->id}}" selected>{{$plane->id}}
+                                                , {{$plane->aircraft_type}}</option>
                                         @else
-                                        <option value="{{$plane->id}}">{{$plane->id}}, {{$plane->aircraft_type}}</option>
-                                            @endif
+                                            <option value="{{$plane->id}}">{{$plane->id}}
+                                                , {{$plane->aircraft_type}}</option>
+                                        @endif
                                     @endif
                                 @endforeach
                             </select>
@@ -128,21 +145,26 @@
 
                         {{-- departure_time --}}
                         <div class="col-lg mb-3 row">
-                            <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i><i class="fa-solid fa-clock"></i></div>
-                            <input type="time" name="departure_time" value="{{$flight->departure_time}}" class="form-control col" required>
+                            <div class="col-3 align-self-center"><i class="fa-solid fa-plane-departure"></i><i
+                                        class="fa-solid fa-clock"></i></div>
+                            <input type="time" name="departure_time" value="{{$flight->departure_time}}"
+                                   class="form-control col" required>
                         </div>
 
                         {{-- arrival_time --}}
                         <div class="col-lg mb-3 row">
-                            <div class="col-3 align-self-center"><i class="fa-solid fa-plane-arrival"></i><i class="fa-solid fa-clock"></i></div>
-                            <input type="time" name="arrival_time" value="{{$flight->arrival_time}}" class="form-control col" required>
+                            <div class="col-3 align-self-center"><i class="fa-solid fa-plane-arrival"></i><i
+                                        class="fa-solid fa-clock"></i></div>
+                            <input type="time" name="arrival_time" value="{{$flight->arrival_time}}"
+                                   class="form-control col" required>
                         </div>
 
                     </div>
 
 
                     <div class="">
-                        <button class="btn btn-blue btn-block"  type="submit"><i class="fa-solid fa-pen"></i> {{__('Update')}}</button>
+                        <button class="btn btn-blue btn-block" type="submit"><i
+                                    class="fa-solid fa-pen"></i> {{__('Update')}}</button>
                     </div>
 
 
@@ -175,27 +197,26 @@
                     <tbody>
 
 
-                        <tr>
-                            <td>{{$total = ($aircraft->num_bus_class + $aircraft->num_econ_class + $aircraft->num_first_class)}}</td>
+                    <tr>
+                        <td>{{$total = ($aircraft->num_bus_class + $aircraft->num_econ_class + $aircraft->num_first_class)}}</td>
 
-                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'booked' ; --}}
-                            <td>{{$total_booked = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','booked')->get()->count()}}</td>
+                        {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'booked' ; --}}
+                        <td>{{$total_booked = Ticket::where('flight_id',$flight->id)->where('status','booked')->get()->count()}}</td>
 
-                            <td>{{$total_av = $total - $total_booked}}</td>
+                        <td>{{$total_av = $total - $total_booked}}</td>
 
-                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'wait-list' ; --}}
-                            <td>{{$total_wl = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','wait-list')->get()->count()}}</td>
+                        {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'wait-list' ; --}}
+                        <td>{{$total_wl = Ticket::where('flight_id',$flight->id)->where('status','wait-list')->get()->count()}}</td>
 
-                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'deleted' ; --}}
-                            <td>{{$total_temp = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','temp')->get()->count()}}</td>
+                        {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'deleted' ; --}}
+                        <td>{{$total_temp = Ticket::where('flight_id',$flight->id)->where('status','temp')->get()->count()}}</td>
 
-                            {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'deleted' ; --}}
-                            <td>{{$total_cl = \App\Models\Ticket::where('flight_id',$flight->id)->where('status','deleted')->get()->count()}}</td>
+                        {{-- select count(*) from Ticket where flight_id = $flight->id and status = 'deleted' ; --}}
+                        <td>{{$total_cl = Ticket::where('flight_id',$flight->id)->where('status','deleted')->get()->count()}}</td>
 
 
-                            <td>{{$avg_booking = $total_booked/$total *100 }} %</td>
-                        </tr>
-
+                        <td>{{$avg_booking = $total_booked/$total *100 }} %</td>
+                    </tr>
 
 
                     </tbody>
@@ -228,8 +249,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach(\App\Models\Ticket::where('flight_id',$flight->id)->get() as $ticket)
-
+                    @foreach(Ticket::where('flight_id',$flight->id)->get() as $ticket)
 
                         <th scope="row">{{$ticket->id}}</th>
                         <td>{{$ticket->passenger_id}}</td>
@@ -246,8 +266,6 @@
                 </table>
             </div>
         </div>
-
-
 
 
     </div>

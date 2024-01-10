@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Aircraft;
 use App\Models\Flight;
+use App\Models\Passenger;
+use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -74,7 +78,7 @@ Route::post('search-one-way', [App\Http\Controllers\SearchController::class, 'on
 // For passenger route
 Route::get('/dashboard', function () {
     $user = Auth::user();
-    $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
+    $is_passenger = Passenger::where('user_id',$user->id)->exists();
     if($is_passenger){
         return view('passenger.pages.dashboard');
     }else{
@@ -89,17 +93,17 @@ Route::post('booking', function (Request $request)  {
     $passengers = $request['passengers'];
     $flight = Flight::where('id',$request['flight_id'])->first();
     if($type == 'economy'){
-        $class_prise = \App\Models\Aircraft::where('plane_id' ,$flight->plane_id )->first()->price_econ_class;
+        $class_prise = Aircraft::where('plane_id' ,$flight->plane_id )->first()->price_econ_class;
     }else if($type == 'business'){
-        $class_prise = \App\Models\Aircraft::where('plane_id' ,$flight->plane_id )->first()->price_bus_class;
+        $class_prise = Aircraft::where('plane_id' ,$flight->plane_id )->first()->price_bus_class;
     }else{
-        $class_prise = \App\Models\Aircraft::where('plane_id' ,$flight->plane_id )->first()->price_first_class;
+        $class_prise = Aircraft::where('plane_id' ,$flight->plane_id )->first()->price_first_class;
 
     }
     $total_price = $class_prise * $passengers;
 
     $user = Auth::user();
-    $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
+    $is_passenger = Passenger::where('user_id',$user->id)->exists();
     if($is_passenger){
         return view('passenger.pages.tickets.new_ticket')->with(compact('type','flight','passengers','total_price'));
 
@@ -123,12 +127,12 @@ Route::get('profile', function () {
 
 Route::get('complete-payment' ,function (){
     $user = Auth::user();
-    $is_passenger = \App\Models\Passenger::where('user_id',$user->id)->exists();
+    $is_passenger = Passenger::where('user_id',$user->id)->exists();
     if($is_passenger){
-        $passenger = \App\Models\Passenger::where('user_id',$user->id)->first();
-        $tickets_list = \App\Models\Ticket::where('passenger_id',$passenger->id)->get();
+        $passenger = Passenger::where('user_id',$user->id)->first();
+        $tickets_list = Ticket::where('passenger_id',$passenger->id)->get();
         $total_price = 0;
-        if(\App\Models\Ticket::where('passenger_id',$passenger->id)->count() == 0){
+        if(Ticket::where('passenger_id',$passenger->id)->count() == 0){
             $message = __('Sorry! You do not has any ticket needs payment.');
           return view('layouts.error_view')->with(compact('message'));
         }
@@ -136,11 +140,11 @@ Route::get('complete-payment' ,function (){
     }else{
         return view('layouts.permission_view');
     }
-})->middleware('auth')->name('complete-payment');;
+})->middleware('auth')->name('complete-payment');
 
 Route::post('/change_name',function (Request $request){
     $user = Auth::user();
-    \App\Models\User::where('id',$user->id)->update([
+    User::where('id',$user->id)->update([
         'Fname' =>$request['Fname'],
         'Lname' =>$request['Lname'],
         'updated_at' => new DateTime('now')

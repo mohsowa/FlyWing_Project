@@ -1,3 +1,4 @@
+@php use App\Models\Plane; @endphp
 <div class="container py-3">
 
     <h3 class="h3">{{__('Planes List')}}</h3>
@@ -15,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach(\App\Models\Plane::all() as $plane)
+            @foreach(Plane::all() as $plane)
 
                 <tr>
                     <th scope="row">{{$plane->id}}</th>
@@ -24,7 +25,8 @@
                     <td>{{$plane->last_maintenance_date}}</td>
                     <td>{{$plane->next_maintenance_date}}</td>
                     <td>
-                        <a href="{{route('plane.show',$plane->id)}}" class="btn btn-primary-outline btn-sm btn-block"><i class="fa-solid fa-eye"></i> {{__('View')}}</a>
+                        <a href="{{route('plane.show',$plane->id)}}" class="btn btn-primary-outline btn-sm btn-block"><i
+                                    class="fa-solid fa-eye"></i> {{__('View')}}</a>
                     </td>
                 </tr>
             @endforeach

@@ -1,3 +1,6 @@
+@php use App\Models\Flight; @endphp
+@php use App\Models\Aircraft; @endphp
+@php use App\Models\Luggage; @endphp
 @extends('passenger.home')
 
 {{-- Cange Page title --}}
@@ -41,13 +44,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @php $total_price = 0; @endphp
+                @php $total_price = 0; @endphp
                 @foreach($tickets_list as $ticket)
 
                     @if($ticket->status == 'temp')
                         @php
-                            $flight = \App\Models\Flight::where('id',$ticket->flight_id)->first();
-                            $aircraft = \App\Models\Aircraft::where('plane_id',$flight->plane_id)->first();
+                            $flight = Flight::where('id',$ticket->flight_id)->first();
+                            $aircraft = Aircraft::where('plane_id',$flight->plane_id)->first();
 
 
                             $local_Prise = 0;
@@ -63,7 +66,7 @@
                             if($ticket->incl_food == 1 ) $local_Prise += $aircraft->price_food ;
                             if($ticket->incl_phone_calls == 1 ) $local_Prise += $aircraft->price_calls;
 
-                            $luggage = \App\Models\Luggage::where('ticket_id',$ticket->id)->first();
+                            $luggage = Luggage::where('ticket_id',$ticket->id)->first();
                             $local_Prise += $luggage->total_price;
 
                             $total_price += $local_Prise;
@@ -80,10 +83,12 @@
                             <td>{{$luggage->quantity}} ({{$luggage->total_weight}} kg)</td>
                             <td>{{$local_Prise}}</td>
                             <td>
-                                <form method="POST" action="{{route('ticket.destroy',$ticket)}}" enctype="multipart/form-data">
+                                <form method="POST" action="{{route('ticket.destroy',$ticket)}}"
+                                      enctype="multipart/form-data">
                                     @method('DELETE')
                                     @csrf
-                                    <button class="btn btn-sm btn-block btn-outline-danger" type="submit" ><i class="fa-solid fa-trash-can"></i></button>
+                                    <button class="btn btn-sm btn-block btn-outline-danger" type="submit"><i
+                                                class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -102,7 +107,7 @@
 
 
                 <div class="container p-4">
-                    <form method="POST" action="{{ route('payment.store')}}" autocomplete="off" >
+                    <form method="POST" action="{{ route('payment.store')}}" autocomplete="off">
                         @csrf
                         @method('POST')
 
@@ -110,8 +115,12 @@
 
                             {{-- Amount --}}
                             <div class="col-lg mb-3 row">
-                                <div class="col-3 align-self-center"><i class="fa-solid fa-money-bill"></i><div>{{__('Total (SAR)')}}</div></div>
-                                <input type="number" name="amount" value="{{$total_price}}" style="background-color: rgba(255,255,255,0.3); pointer-events: none;" class="form-control col" required>
+                                <div class="col-3 align-self-center"><i class="fa-solid fa-money-bill"></i>
+                                    <div>{{__('Total (SAR)')}}</div>
+                                </div>
+                                <input type="number" name="amount" value="{{$total_price}}"
+                                       style="background-color: rgba(255,255,255,0.3); pointer-events: none;"
+                                       class="form-control col" required>
                             </div>
 
                             {{-- empty --}}
@@ -126,16 +135,25 @@
                             {{-- card number --}}
                             <div class="col-lg mb-3 row">
                                 <div class="col-3 align-self-center"><i class="fa-solid fa-credit-card"></i></div>
-                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4" maxlength="4"  pattern="[0-9]{4}" name="card_n_1" required class="form-control m-1 col">
-                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4" maxlength="4"  pattern="[0-9]{4}" name="card_n_2" required class="form-control m-1 col">
-                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4" maxlength="4"  pattern="[0-9]{4}" name="card_n_3" required class="form-control m-1 col">
-                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4" maxlength="4"  pattern="[0-9]{4}" name="card_n_4" required class="form-control m-1 col">
+                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4"
+                                       maxlength="4" pattern="[0-9]{4}" name="card_n_1" required
+                                       class="form-control m-1 col">
+                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4"
+                                       maxlength="4" pattern="[0-9]{4}" name="card_n_2" required
+                                       class="form-control m-1 col">
+                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4"
+                                       maxlength="4" pattern="[0-9]{4}" name="card_n_3" required
+                                       class="form-control m-1 col">
+                                <input type="text" placeholder="--  --  --  -- " min="0" max="9999" minlength="4"
+                                       maxlength="4" pattern="[0-9]{4}" name="card_n_4" required
+                                       class="form-control m-1 col">
                             </div>
 
                             {{-- name on card --}}
                             <div class="col-lg mb-3 row">
                                 <div class="col-3 align-self-center"><i class="fa-solid fa-user"></i></div>
-                                <input type="text" placeholder="{{__('Name on card')}}" name="name" value="{{old('arrival_time')}}" class="form-control col">
+                                <input type="text" placeholder="{{__('Name on card')}}" name="name"
+                                       value="{{old('arrival_time')}}" class="form-control col">
                             </div>
 
                         </div>
@@ -144,21 +162,25 @@
 
                             {{-- Epire info --}}
                             <div class="col-lg mb-3 row">
-                                <div class="col-3 align-self-center"><i class="fa-solid fa-money-bill"></i>{{__('EXP')}}</div>
-                                <input type="month"  name="expire" placeholder="{{__('Month')}}"  class="form-control col" required>
+                                <div class="col-3 align-self-center"><i class="fa-solid fa-money-bill"></i>{{__('EXP')}}
+                                </div>
+                                <input type="month" name="expire" placeholder="{{__('Month')}}" class="form-control col"
+                                       required>
                             </div>
 
                             {{-- empty --}}
                             <div class="col-lg mb-3 row">
                                 <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i> {{__('CCV')}}</div>
-                                <input type="number" name="ccv" min="0" max="999" maxlength="3" minlength="3" placeholder="{{__('Security Code')}}"  class="form-control col" required>
+                                <input type="number" name="ccv" min="0" max="999" maxlength="3" minlength="3"
+                                       placeholder="{{__('Security Code')}}" class="form-control col" required>
                             </div>
 
                         </div>
 
 
                         <div class="">
-                            <button class="btn btn-blue btn-block"  type="submit"><i class="fa-solid fa-check"></i> {{__('Confirm')}}</button>
+                            <button class="btn btn-blue btn-block" type="submit"><i
+                                        class="fa-solid fa-check"></i> {{__('Confirm')}}</button>
                         </div>
 
                     </form>

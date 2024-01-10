@@ -17,26 +17,26 @@
             <div class="navbar-nav">
                 @auth
                     @if(DB::table('admins')->where('user_id', Auth::user()->id)->exists())
-                        <li class="nav-item">
-                            <a class="@yield('admin-active','nav-link ')" href="{{ route('admin.index') }}"><i class="fa-solid fa-user-gear"></i><span>{{__('Admins')}}</span></a>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('admin.index') }}"><i class="fa-solid fa-user-gear"></i><span>{{__('Admins')}}</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="@yield('passenger-active','nav-link ')" href="{{ route('passenger.index') }}"><i class="fa-solid fa-users"></i> <span>{{__('Passengers')}}</span></a>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('passenger.index') }}"><i class="fa-solid fa-users"></i> <span>{{__('Passengers')}}</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="@yield('flight-active','nav-link ')" href="{{ route('flight.index') }}"><i class="fa-solid fa-calendar-check"></i> <span>{{__('Flights')}}</span></a>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('flight.index') }}"><i class="fa-solid fa-calendar-check"></i> <span>{{__('Flights')}}</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="@yield('plane-active','nav-link ')" href="{{ route('plane.index') }}"><i class="fa-solid fa-plane"></i>  <span>{{__('Planes')}}</span></a>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('plane.index') }}"><i class="fa-solid fa-plane"></i>  <span>{{__('Planes')}}</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="@yield('payment-active','nav-link ')" href="{{ route('payment.index') }}"><i class="fa-solid fa-credit-card"></i>  <span>{{__('Payments')}}</span></a>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('payment.index') }}"><i class="fa-solid fa-credit-card"></i>  <span>{{__('Payments')}}</span></a>
                         </li>
                     @endif
 
                     @if(DB::table('passengers')->where('user_id', Auth::user()->id)->exists())
-                            <li class="nav-item">
-                                <a class="@yield('home-active','nav-link ')" href="/dashboard"><i class="fa-solid fa-gauge"></i>  <span>{{__('Dashboard')}}</span></a>
+                            <li class="nav-link">
+                                <a class="nav-link" href="/dashboard"><i class="fa-solid fa-gauge"></i>  <span>{{__('Dashboard')}}</span></a>
                             </li>
                     @endif
 

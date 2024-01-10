@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2022 Justin Hileman
+ * (c) 2012-2023 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,17 +15,19 @@ use Psy\CodeCleaner\NoReturnValue;
 use Psy\Exception\BreakException;
 use Psy\Exception\ErrorException;
 use Psy\Exception\Exception as PsyException;
+use Psy\Exception\RuntimeException;
 use Psy\Exception\ThrowUpException;
-use Psy\Exception\TypeErrorException;
 use Psy\ExecutionLoop\ProcessForker;
 use Psy\ExecutionLoop\RunkitReloader;
 use Psy\Formatter\TraceFormatter;
 use Psy\Input\ShellInput;
 use Psy\Input\SilentInput;
+use Psy\Output\ShellOutput;
 use Psy\TabCompletion\Matcher;
 use Psy\VarDumper\PresenterAware;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command as BaseCommand;
+use Symfony\Component\Console\Exception\ExceptionInterface as SymfonyConsoleException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -48,12 +50,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.11.2';
-
-    const PROMPT = '>>> ';
-    const BUFF_PROMPT = '... ';
-    const REPLAY = '--> ';
-    const RETVAL = '=> ';
+    const VERSION = 'v0.12.0';
 
     private $config;
     private $cleaner;
@@ -125,6 +122,14 @@ class Shell extends Application
     }
 
     /**
+     * Check if the currently running PsySH bin is a phar archive.
+     */
+    public static function isPhar(): bool
+    {
+        return \class_exists("\Phar") && \Phar::running() !== '' && \strpos(__FILE__, \Phar::running(true)) === 0;
+    }
+
+    /**
      * Invoke a Psy Shell from the current context.
      *
      * @see Psy\debug
@@ -137,6 +142,8 @@ class Shell extends Application
      */
     public static function debug(array $vars = [], $bindTo = null): array
     {
+        @\trigger_error('`Psy\\Shell::debug` is deprecated; call `Psy\\debug` instead.', \E_USER_DEPRECATED);
+
         return \Psy\debug($vars, $bindTo);
     }
 
@@ -216,7 +223,7 @@ class Shell extends Application
     }
 
     /**
-     * @return array
+     * @return Matcher\AbstractMatcher[]
      */
     protected function getDefaultMatchers(): array
     {
@@ -239,14 +246,6 @@ class Shell extends Application
             new Matcher\ObjectMethodDefaultParametersMatcher(),
             new Matcher\FunctionDefaultParametersMatcher(),
         ];
-    }
-
-    /**
-     * @deprecated Nothing should use this anymore
-     */
-    protected function getTabCompletionMatchers()
-    {
-        @\trigger_error('getTabCompletionMatchers is no longer used', \E_USER_DEPRECATED);
     }
 
     /**
@@ -290,6 +289,8 @@ class Shell extends Application
      */
     public function addTabCompletionMatchers(array $matchers)
     {
+        @\trigger_error('`addTabCompletionMatchers` is deprecated; call `addMatchers` instead.', \E_USER_DEPRECATED);
+
         $this->addMatchers($matchers);
     }
 
@@ -326,7 +327,7 @@ class Shell extends Application
 
         try {
             return parent::run($input, $output);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->writeException($e);
         }
 
@@ -336,7 +337,7 @@ class Shell extends Application
     /**
      * Runs PsySH.
      *
-     * @throws \Exception if thrown via the `throw-up` command
+     * @throws \Throwable if thrown via the `throw-up` command
      *
      * @param InputInterface  $input  An Input instance
      * @param OutputInterface $output An Output instance
@@ -362,7 +363,7 @@ class Shell extends Application
      * Initializes tab completion and readline history, then spins up the
      * execution loop.
      *
-     * @throws \Exception if thrown via the `throw-up` command
+     * @throws \Throwable if thrown via the `throw-up` command
      *
      * @return int 0 if everything went fine, or an error code
      */
@@ -435,7 +436,7 @@ class Shell extends Application
     /**
      * Configures the input and output instances based on the user arguments and options.
      */
-    protected function configureIO(InputInterface $input, OutputInterface $output)
+    protected function configureIO(InputInterface $input, OutputInterface $output): void
     {
         // @todo overrides via environment variables (or should these happen in config? ... probably config)
         $input->setInteractive($this->config->getInputInteractive());
@@ -458,8 +459,6 @@ class Shell extends Application
             foreach ($__psysh__->getIncludes() as $__psysh_include__) {
                 try {
                     include_once $__psysh_include__;
-                } catch (\Error $_e) {
-                    $__psysh__->writeException(ErrorException::fromError($_e));
                 } catch (\Exception $_e) {
                     $__psysh__->writeException($_e);
                 }
@@ -583,8 +582,6 @@ class Shell extends Application
      * Run execution loop listeners on user input.
      *
      * @param string $input
-     *
-     * @return string
      */
     public function onInput(string $input): string
     {
@@ -601,8 +598,6 @@ class Shell extends Application
      * Run execution loop listeners on code to be executed.
      *
      * @param string $code
-     *
-     * @return string
      */
     public function onExecute(string $code): string
     {
@@ -619,7 +614,7 @@ class Shell extends Application
             $output = $output->getErrorOutput();
         }
 
-        $output->writeln(\sprintf('<aside>%s</aside>', OutputFormatter::escape($code)), ConsoleOutput::VERBOSITY_DEBUG);
+        $output->writeln(\sprintf('<whisper>%s</whisper>', OutputFormatter::escape($code)), ConsoleOutput::VERBOSITY_DEBUG);
 
         return $code;
     }
@@ -659,7 +654,7 @@ class Shell extends Application
      *
      * @param bool $includeBoundObject Pass false to exclude 'this'. If you're
      *                                 passing the scope variables to `extract`
-     *                                 in PHP 7.1+, you _must_ exclude 'this'
+     *                                 you _must_ exclude 'this'
      *
      * @return array Associative array of scope variables
      */
@@ -679,7 +674,7 @@ class Shell extends Application
      *
      * @param bool $includeBoundObject Pass false to exclude 'this'. If you're
      *                                 passing the scope variables to `extract`
-     *                                 in PHP 7.1+, you _must_ exclude 'this'
+     *                                 you _must_ exclude 'this'
      *
      * @return array Associative array of magic scope variables
      */
@@ -803,7 +798,7 @@ class Shell extends Application
     /**
      * Get PHP files to be parsed and executed before running the interactive shell.
      *
-     * @return array
+     * @return string[]
      */
     public function getIncludes(): array
     {
@@ -898,7 +893,7 @@ class Shell extends Application
      *
      * This is useful for commands which manipulate the buffer.
      *
-     * @return array
+     * @return string[]
      */
     public function getCodeBuffer(): array
     {
@@ -926,6 +921,9 @@ class Shell extends Application
 
         if ($input->hasParameterOption(['--help', '-h'])) {
             $helpCommand = $this->get('help');
+            if (!$helpCommand instanceof Command\HelpCommand) {
+                throw new RuntimeException('Invalid help command instance');
+            }
             $helpCommand->setCommand($command);
 
             return $helpCommand->run(new StringInput(''), $this->output);
@@ -1058,6 +1056,12 @@ class Shell extends Application
      */
     public function writeStdout(string $out, int $phase = \PHP_OUTPUT_HANDLER_END)
     {
+        if ($phase & \PHP_OUTPUT_HANDLER_START) {
+            if ($this->output instanceof ShellOutput) {
+                $this->output->startPaging();
+            }
+        }
+
         $isCleaning = $phase & \PHP_OUTPUT_HANDLER_CLEAN;
 
         // Incremental flush
@@ -1072,7 +1076,7 @@ class Shell extends Application
             // Write an extra newline if stdout didn't end with one
             if ($this->outputWantsNewline) {
                 if (!$this->config->rawOutput() && !$this->config->outputIsPiped()) {
-                    $this->output->writeln(\sprintf('<aside>%s</aside>', $this->config->useUnicode() ? '⏎' : '\\n'));
+                    $this->output->writeln(\sprintf('<whisper>%s</whisper>', $this->config->useUnicode() ? '⏎' : '\\n'));
                 } else {
                     $this->output->writeln('');
                 }
@@ -1083,6 +1087,10 @@ class Shell extends Application
             if ($this->stdoutBuffer !== '') {
                 $this->context->setLastStdout($this->stdoutBuffer);
                 $this->stdoutBuffer = '';
+            }
+
+            if ($this->output instanceof ShellOutput) {
+                $this->output->stopPaging();
             }
         }
     }
@@ -1111,25 +1119,32 @@ class Shell extends Application
         if ($rawOutput) {
             $formatted = \var_export($ret, true);
         } else {
-            $indent = \str_repeat(' ', \strlen(static::RETVAL));
+            $prompt = $this->config->theme()->returnValue();
+            $indent = \str_repeat(' ', \strlen($prompt));
             $formatted = $this->presentValue($ret);
-            $formatted = static::RETVAL.\str_replace(\PHP_EOL, \PHP_EOL.$indent, $formatted);
+            $formattedRetValue = \sprintf('<whisper>%s</whisper>', $prompt);
+
+            $formatted = $formattedRetValue.\str_replace(\PHP_EOL, \PHP_EOL.$indent, $formatted);
         }
 
-        $this->output->writeln($formatted);
+        if ($this->output instanceof ShellOutput) {
+            $this->output->page($formatted.\PHP_EOL);
+        } else {
+            $this->output->writeln($formatted);
+        }
     }
 
     /**
-     * Renders a caught Exception.
+     * Renders a caught Exception or Error.
      *
      * Exceptions are formatted according to severity. ErrorExceptions which were
      * warnings or Strict errors aren't rendered as harshly as real errors.
      *
      * Stores $e as the last Exception in the Shell Context.
      *
-     * @param \Exception $e An exception instance
+     * @param \Throwable $e An exception or error instance
      */
-    public function writeException(\Exception $e)
+    public function writeException(\Throwable $e)
     {
         // No need to write the break exception during a non-interactive run.
         if ($e instanceof BreakException && $this->nonInteractive) {
@@ -1148,7 +1163,16 @@ class Shell extends Application
         if ($output instanceof ConsoleOutput) {
             $output = $output->getErrorOutput();
         }
+
+        if (!$this->config->theme()->compact()) {
+            $output->writeln('');
+        }
+
         $output->writeln($this->formatException($e));
+
+        if (!$this->config->theme()->compact()) {
+            $output->writeln('');
+        }
 
         // Include an exception trace (as long as this isn't a BreakException).
         if (!$e instanceof BreakException && $output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
@@ -1167,8 +1191,6 @@ class Shell extends Application
      * Check whether the last exec was successful.
      *
      * Returns true if a return value was logged rather than an exception.
-     *
-     * @return bool
      */
     public function getLastExecSuccess(): bool
     {
@@ -1176,23 +1198,27 @@ class Shell extends Application
     }
 
     /**
-     * Helper for formatting an exception for writeException().
+     * Helper for formatting an exception or error for writeException().
      *
      * @todo extract this to somewhere it makes more sense
      *
-     * @param \Exception $e
-     *
-     * @return string
+     * @param \Throwable $e
      */
-    public function formatException(\Exception $e): string
+    public function formatException(\Throwable $e): string
     {
-        $message = $e->getMessage();
-        if (!$e instanceof PsyException) {
-            if ($message === '') {
-                $message = \get_class($e);
-            } else {
-                $message = \sprintf('%s with message \'%s\'', \get_class($e), $message);
-            }
+        $indent = $this->config->theme()->compact() ? '' : '  ';
+
+        if ($e instanceof BreakException) {
+            return \sprintf('%s<info> INFO </info> %s.', $indent, \rtrim($e->getRawMessage(), '.'));
+        } elseif ($e instanceof PsyException) {
+            $message = $e->getLine() > 1
+                ? \sprintf('%s in %s on line %d', $e->getRawMessage(), $e->getFile(), $e->getLine())
+                : \sprintf('%s in %s', $e->getRawMessage(), $e->getFile());
+
+            $messageLabel = \strtoupper($this->getMessageLabel($e));
+        } else {
+            $message = $e->getMessage();
+            $messageLabel = $this->getMessageLabel($e);
         }
 
         $message = \preg_replace(
@@ -1201,19 +1227,26 @@ class Shell extends Application
             $message
         );
 
-        $message = \str_replace(" in eval()'d code", ' in Psy Shell code', $message);
+        $message = \str_replace(" in eval()'d code", '', $message);
+        $message = \trim($message);
+
+        // Ensures the given string ends with punctuation...
+        if (!empty($message) && !\in_array(\substr($message, -1), ['.', '?', '!', ':'])) {
+            $message = "$message.";
+        }
+
+        // Ensures the given message only contains relative paths...
+        $message = \str_replace(\getcwd().\DIRECTORY_SEPARATOR, '', $message);
 
         $severity = ($e instanceof \ErrorException) ? $this->getSeverity($e) : 'error';
 
-        return \sprintf('<%s>%s</%s>', $severity, OutputFormatter::escape($message), $severity);
+        return \sprintf('%s<%s> %s </%s> %s', $indent, $severity, $messageLabel, $severity, OutputFormatter::escape($message));
     }
 
     /**
      * Helper for getting an output style for the given ErrorException's level.
      *
      * @param \ErrorException $e
-     *
-     * @return string
      */
     protected function getSeverity(\ErrorException $e): string
     {
@@ -1226,6 +1259,8 @@ class Shell extends Application
                 case \E_COMPILE_WARNING:
                 case \E_USER_WARNING:
                 case \E_USER_NOTICE:
+                case \E_USER_DEPRECATED:
+                case \E_DEPRECATED:
                 case \E_STRICT:
                     return 'warning';
 
@@ -1236,6 +1271,62 @@ class Shell extends Application
             // Since this is below the user's reporting threshold, it's always going to be a warning.
             return 'warning';
         }
+    }
+
+    /**
+     * Helper for getting an output style for the given ErrorException's level.
+     *
+     * @param \Throwable $e
+     */
+    protected function getMessageLabel(\Throwable $e): string
+    {
+        if ($e instanceof \ErrorException) {
+            $severity = $e->getSeverity();
+
+            if ($severity & \error_reporting()) {
+                switch ($severity) {
+                    case \E_WARNING:
+                        return 'Warning';
+                    case \E_NOTICE:
+                        return 'Notice';
+                    case \E_CORE_WARNING:
+                        return 'Core Warning';
+                    case \E_COMPILE_WARNING:
+                        return 'Compile Warning';
+                    case \E_USER_WARNING:
+                        return 'User Warning';
+                    case \E_USER_NOTICE:
+                        return 'User Notice';
+                    case \E_USER_DEPRECATED:
+                        return 'User Deprecated';
+                    case \E_DEPRECATED:
+                        return 'Deprecated';
+                    case \E_STRICT:
+                        return 'Strict';
+                }
+            }
+        }
+
+        if ($e instanceof PsyException || $e instanceof SymfonyConsoleException) {
+            $exceptionShortName = (new \ReflectionClass($e))->getShortName();
+            $typeParts = \preg_split('/(?=[A-Z])/', $exceptionShortName);
+
+            switch ($exceptionShortName) {
+                case 'RuntimeException':
+                case 'LogicException':
+                    // These ones look weird without 'Exception'
+                    break;
+                default:
+                    if (\end($typeParts) === 'Exception') {
+                        \array_pop($typeParts);
+                    }
+                    break;
+            }
+
+            return \trim(\strtoupper(\implode(' ', $typeParts)));
+        }
+
+        return \get_class($e);
     }
 
     /**
@@ -1257,11 +1348,7 @@ class Shell extends Application
 
         try {
             return $closure->execute();
-        } catch (\TypeError $_e) {
-            $this->writeException(TypeErrorException::fromTypeError($_e));
-        } catch (\Error $_e) {
-            $this->writeException(ErrorException::fromError($_e));
-        } catch (\Exception $_e) {
+        } catch (\Throwable $_e) {
             $this->writeException($_e);
         }
     }
@@ -1367,11 +1454,13 @@ class Shell extends Application
             return null;
         }
 
+        $theme = $this->config->theme();
+
         if ($this->hasCode()) {
-            return static::BUFF_PROMPT;
+            return $theme->bufferPrompt();
         }
 
-        return $this->config->getPrompt() ?: static::PROMPT;
+        return $theme->prompt();
     }
 
     /**
@@ -1389,10 +1478,12 @@ class Shell extends Application
      */
     protected function readline(bool $interactive = true)
     {
+        $prompt = $this->config->theme()->replayPrompt();
+
         if (!empty($this->inputBuffer)) {
             $line = \array_shift($this->inputBuffer);
             if (!$line instanceof SilentInput) {
-                $this->output->writeln(\sprintf('<aside>%s %s</aside>', static::REPLAY, OutputFormatter::escape($line)));
+                $this->output->writeln(\sprintf('<whisper>%s</whisper><aside>%s</aside>', $prompt, OutputFormatter::escape($line)));
             }
 
             return $line;
@@ -1415,23 +1506,21 @@ class Shell extends Application
 
     /**
      * Get the shell output header.
-     *
-     * @return string
      */
     protected function getHeader(): string
     {
-        return \sprintf('<aside>%s by Justin Hileman</aside>', $this->getVersion());
+        return \sprintf('<whisper>%s by Justin Hileman</whisper>', $this->getVersion());
     }
 
     /**
      * Get the current version of Psy Shell.
      *
      * @deprecated call self::getVersionHeader instead
-     *
-     * @return string
      */
     public function getVersion(): string
     {
+        @\trigger_error('`getVersion` is deprecated; call `self::getVersionHeader` instead.', \E_USER_DEPRECATED);
+
         return self::getVersionHeader($this->config->useUnicode());
     }
 
@@ -1439,8 +1528,6 @@ class Shell extends Application
      * Get a pretty header including the current version of Psy Shell.
      *
      * @param bool $useUnicode
-     *
-     * @return string
      */
     public static function getVersionHeader(bool $useUnicode = false): string
     {
@@ -1457,14 +1544,6 @@ class Shell extends Application
     public function getManualDb()
     {
         return $this->config->getManualDb();
-    }
-
-    /**
-     * @deprecated Tab completion is provided by the AutoCompleter service
-     */
-    protected function autocomplete($text)
-    {
-        @\trigger_error('Tab completion is provided by the AutoCompleter service', \E_USER_DEPRECATED);
     }
 
     /**
@@ -1505,7 +1584,6 @@ class Shell extends Application
     }
 
     /**
-     * @todo Implement self-update
      * @todo Implement prompt to start update
      *
      * @return void|string
@@ -1519,7 +1597,7 @@ class Shell extends Application
         try {
             $client = $this->config->getChecker();
             if (!$client->isLatest()) {
-                $this->output->writeln(\sprintf('New version is available (current: %s, latest: %s)', self::VERSION, $client->getLatest()));
+                $this->output->writeln(\sprintf('<whisper>New version is available at psysh.org/psysh (current: %s, latest: %s)</whisper>', self::VERSION, $client->getLatest()));
             }
         } catch (\InvalidArgumentException $e) {
             $this->output->writeln($e->getMessage());

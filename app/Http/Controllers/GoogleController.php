@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Carbon\Carbon;
 use App\Models\User;
+use Throwable;
 
 class GoogleController extends Controller
 {
@@ -49,7 +50,7 @@ class GoogleController extends Controller
             return redirect()->route('home');
 
 
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             throw $th;
         }
     }

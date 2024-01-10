@@ -1,3 +1,5 @@
+@php use App\Models\Admin; @endphp
+@php use App\Models\Passenger; @endphp
 @extends('home')
 @section('page_title')
     @yield('sub_page_name',__('Profile'))
@@ -52,7 +54,7 @@
                                         <div>{{__('Admin ID')}}</div>
                                     </div>
                                     <input type="number"
-                                           value="{{\App\Models\Admin::where('user_id',$user->id)->first()->id}}"
+                                           value="{{Admin::where('user_id',$user->id)->first()->id}}"
                                            style="background-color: rgba(255,255,255,0.3); pointer-events: none;"
                                            class="form-control col" disabled required>
                                 </div>
@@ -63,7 +65,7 @@
                                         <div>{{__('Passenger ID')}}</div>
                                     </div>
                                     <input type="number"
-                                           value="{{\App\Models\Passenger::where('user_id',$user->id)->first()->id}}"
+                                           value="{{Passenger::where('user_id',$user->id)->first()->id}}"
                                            style="background-color: rgba(255,255,255,0.3); pointer-events: none;"
                                            class="form-control col" disabled required>
                                 </div>
@@ -85,7 +87,7 @@
                                 {{-- email_verified_at --}}
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i
-                                            class="fa-solid fa-at"></i></div>
+                                                class="fa-solid fa-at"></i></div>
                                     <input type="text" value="{{$user->email_verified_at}}" class="form-control col"
                                            style="background-color: rgba(255,255,255,0.3); pointer-events: none;"
                                            required>
@@ -93,8 +95,9 @@
                             @else
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i
-                                            class="fa-solid fa-at"></i></div>
-                                    <a href="{{route('verification.notice')}}" class="col btn btn-warning">{{__('Verify your email')}}</a>
+                                                class="fa-solid fa-at"></i></div>
+                                    <a href="{{route('verification.notice')}}"
+                                       class="col btn btn-warning">{{__('Verify your email')}}</a>
                                 </div>
                             @endif
 
@@ -103,7 +106,6 @@
                         <br>
                         <hr>
                     </div>
-
 
 
                     {{--Change Name--}}
@@ -115,7 +117,7 @@
                             {{-- First Name --}}
                             <div class="col-lg mb-3 row">
                                 <div class="col-3 align-self-center"><i
-                                        class="fa-solid fa-pen"></i> {{__('FirstName')}}</div>
+                                            class="fa-solid fa-pen"></i> {{__('FirstName')}}</div>
                                 <input type="text" name="Fname" value="{{$user->Fname}}" class="form-control col"
                                        required>
                             </div>
@@ -123,7 +125,7 @@
                             {{-- Last Name --}}
                             <div class="col-lg mb-3 row">
                                 <div class="col-3 align-self-center"><i
-                                        class="fa-solid fa-pen"></i> {{__('LastName')}}</div>
+                                            class="fa-solid fa-pen"></i> {{__('LastName')}}</div>
                                 <input type="text" name="Lname" value="{{$user->Lname}}" class="form-control col"
                                        required>
                             </div>
@@ -132,35 +134,42 @@
 
                         <div>
                             <button class="btn btn-blue btn-block" type="submit"><i
-                                    class="fa-solid fa-pencil"></i> {{__('Update Name')}}</button>
+                                        class="fa-solid fa-pencil"></i> {{__('Update Name')}}</button>
                         </div>
 
                     </form>
 
 
-
-
                     {{--Passenger Info--}}
                     @if($is_passenger)
                         {{--Change Name--}}
-                        <form method="POST" action="{{route('passenger.update',\App\Models\Passenger::where('user_id',$user->id)->first())}}" autocomplete="off">
+                        <form method="POST"
+                              action="{{route('passenger.update',Passenger::where('user_id',$user->id)->first())}}"
+                              autocomplete="off">
                             @csrf
                             @method('PATCH')
                             <div class="row text-center">
 
                                 {{-- DOB --}}
                                 <div class="col-lg mb-3 row">
-                                    <div class="col-3 align-self-center"><i class="fa-solid fa-calendar"></i> <div>{{__('Date of Birth')}}</div></div>
-                                    <input type="date" name="dob" value="{{\App\Models\Passenger::where('user_id',$user->id)->first()->date_of_birth}}" class="form-control col"  required>
+                                    <div class="col-3 align-self-center"><i class="fa-solid fa-calendar"></i>
+                                        <div>{{__('Date of Birth')}}</div>
+                                    </div>
+                                    <input type="date" name="dob"
+                                           value="{{Passenger::where('user_id',$user->id)->first()->date_of_birth}}"
+                                           class="form-control col" required>
                                 </div>
 
                                 {{-- Sex --}}
                                 <div class="col-lg mb-3 row">
                                     <div class="col-3 align-self-center"><i class="fa-solid fa-venus-mars"></i></div>
                                     <select name="sex" class="col form-control js-example-basic-multiple" required>
-                                        <option value="select" disabled @if(\App\Models\Passenger::where('user_id',$user->id)->first()->sex == null )selected @endif>{{__('Select Sex')}}</option>
-                                        <option value="male" @if(\App\Models\Passenger::where('user_id',$user->id)->first()->sex == 'male')selected @endif>{{__('Male')}}</option>
-                                        <option value="female" @if(\App\Models\Passenger::where('user_id',$user->id)->first()->sex == 'female')selected @endif>{{__('Female')}}</option>
+                                        <option value="select" disabled
+                                                @if(Passenger::where('user_id',$user->id)->first()->sex == null )selected @endif>{{__('Select Sex')}}</option>
+                                        <option value="male"
+                                                @if(Passenger::where('user_id',$user->id)->first()->sex == 'male')selected @endif>{{__('Male')}}</option>
+                                        <option value="female"
+                                                @if(Passenger::where('user_id',$user->id)->first()->sex == 'female')selected @endif>{{__('Female')}}</option>
                                     </select>
                                 </div>
 
@@ -169,11 +178,10 @@
 
                             <div>
                                 <button class="btn btn-blue btn-block" type="submit"><i
-                                        class="fa-solid fa-pencil"></i> {{__('Update Name')}}</button>
+                                            class="fa-solid fa-pencil"></i> {{__('Update Name')}}</button>
                             </div>
 
                         </form>
-
 
                     @endif
 
@@ -181,46 +189,45 @@
                     {{----}}
 
 
-
                 </div>
             </div>
         </div>
 
-@endsection
+        @endsection
 
         @section('chang-password')
             <br>
             <hr>
-        <form method="POST" action="" autocomplete="off">
-            @csrf
-            @method('PUT')
-            <div class="row text-center">
+            <form method="POST" action="" autocomplete="off">
+                @csrf
+                @method('PUT')
+                <div class="row text-center">
 
-                {{-- Password --}}
-                <div class="col-lg mb-3 row">
-                    <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
-                    <input type="password" name="password"
-                           class="form-control col @error('password') is-invalid @enderror"
-                           placeholder="{{ __('Password') }}" autocomplete="new-password" required>
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
+                    {{-- Password --}}
+                    <div class="col-lg mb-3 row">
+                        <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
+                        <input type="password" name="password"
+                               class="form-control col @error('password') is-invalid @enderror"
+                               placeholder="{{ __('Password') }}" autocomplete="new-password" required>
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                    @enderror
+                        @enderror
+                    </div>
+
+                    {{-- Confirm --}}
+                    <div class="col-lg mb-3 row">
+                        <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
+                        <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}"
+                               name="password_confirmation" autocomplete="new-password" class="form-control col"
+                               required>
+                    </div>
                 </div>
 
-                {{-- Confirm --}}
-                <div class="col-lg mb-3 row">
-                    <div class="col-3 align-self-center"><i class="fa-solid fa-key"></i></div>
-                    <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}"
-                           name="password_confirmation" autocomplete="new-password" class="form-control col"
-                           required>
+                <div>
+                    <button class="btn btn-danger btn-block" type="submit"><i
+                                class="fa-solid fa-pencil"></i> {{__('Change Password')}}</button>
                 </div>
-            </div>
-
-            <div>
-                <button class="btn btn-danger btn-block" type="submit"><i
-                        class="fa-solid fa-pencil"></i> {{__('Change Password')}}</button>
-            </div>
-        </form>
-        @endsection
+            </form>
+@endsection

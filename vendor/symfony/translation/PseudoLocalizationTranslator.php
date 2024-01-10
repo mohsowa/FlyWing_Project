@@ -20,16 +20,16 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
 {
     private const EXPANSION_CHARACTER = '~';
 
-    private $translator;
-    private $accents;
-    private $expansionFactor;
-    private $brackets;
-    private $parseHTML;
+    private TranslatorInterface $translator;
+    private bool $accents;
+    private float $expansionFactor;
+    private bool $brackets;
+    private bool $parseHTML;
 
     /**
      * @var string[]
      */
-    private $localizableHTMLAttributes;
+    private array $localizableHTMLAttributes;
 
     /**
      * Available options:
@@ -83,9 +83,6 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
         $this->localizableHTMLAttributes = $options['localizable_html_attributes'] ?? [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         $trans = '';
@@ -283,7 +280,7 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
         }
 
         $visibleLength = $this->strlen($visibleText);
-        $missingLength = (int) (ceil($visibleLength * $this->expansionFactor)) - $visibleLength;
+        $missingLength = (int) ceil($visibleLength * $this->expansionFactor) - $visibleLength;
         if ($this->brackets) {
             $missingLength -= 2;
         }

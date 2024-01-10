@@ -120,7 +120,7 @@
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: #292254; color: white;">
         © {{date('Y')}} Copyright |
-        <a class="text-reset fw-bold" href="/">flywing.online</a>
+        <a class="text-reset fw-bold" href="/">flywing.mohsowa.com</a>
     </div>
     <!-- Copyright -->
 </footer>

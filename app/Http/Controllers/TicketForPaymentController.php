@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\TicketForPayment;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TicketForPaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -20,7 +21,7 @@ class TicketForPaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -30,8 +31,8 @@ class TicketForPaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -41,8 +42,8 @@ class TicketForPaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TicketForPayment  $ticketForPayment
-     * @return \Illuminate\Http\Response
+     * @param TicketForPayment $ticketForPayment
+     * @return Response
      */
     public function show(TicketForPayment $ticketForPayment)
     {
@@ -52,8 +53,8 @@ class TicketForPaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TicketForPayment  $ticketForPayment
-     * @return \Illuminate\Http\Response
+     * @param TicketForPayment $ticketForPayment
+     * @return Response
      */
     public function edit(TicketForPayment $ticketForPayment)
     {
@@ -63,9 +64,9 @@ class TicketForPaymentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TicketForPayment  $ticketForPayment
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param TicketForPayment $ticketForPayment
+     * @return Response
      */
     public function update(Request $request, TicketForPayment $ticketForPayment)
     {
@@ -75,8 +76,8 @@ class TicketForPaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TicketForPayment  $ticketForPayment
-     * @return \Illuminate\Http\Response
+     * @param TicketForPayment $ticketForPayment
+     * @return Response
      */
     public function destroy(TicketForPayment $ticketForPayment)
     {

@@ -27,6 +27,7 @@ use Facade\Ignition\Logger\FlareHandler;
 use Facade\Ignition\LogRecorder\LogRecorder;
 use Facade\Ignition\Middleware\AddDumps;
 use Facade\Ignition\Middleware\AddEnvironmentInformation;
+use Facade\Ignition\Middleware\AddExceptionInformation;
 use Facade\Ignition\Middleware\AddGitInformation;
 use Facade\Ignition\Middleware\AddJobInformation;
 use Facade\Ignition\Middleware\AddLogs;
@@ -49,6 +50,8 @@ use Facade\Ignition\SolutionProviders\MissingPackageSolutionProvider;
 use Facade\Ignition\SolutionProviders\RunningLaravelDuskInProductionProvider;
 use Facade\Ignition\SolutionProviders\SolutionProviderRepository;
 use Facade\Ignition\SolutionProviders\TableNotFoundSolutionProvider;
+use Facade\Ignition\SolutionProviders\UndefinedLivewireMethodSolutionProvider;
+use Facade\Ignition\SolutionProviders\UndefinedLivewirePropertySolutionProvider;
 use Facade\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
 use Facade\Ignition\SolutionProviders\UndefinedVariableSolutionProvider;
 use Facade\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
@@ -108,11 +111,11 @@ class IgnitionServiceProvider extends ServiceProvider
             $this->setupOctane();
         }
 
-        if (config('flare.reporting.report_logs')) {
+        if (config('flare.reporting.report_logs', true)) {
             $this->app->make(LogRecorder::class)->register();
         }
 
-        if (config('flare.reporting.report_queries')) {
+        if (config('flare.reporting.report_queries', true)) {
             $this->app->make(QueryRecorder::class)->register();
         }
 
@@ -133,11 +136,11 @@ class IgnitionServiceProvider extends ServiceProvider
             ->registerDumpCollector()
             ->registerJobRecorder();
 
-        if (config('flare.reporting.report_logs')) {
+        if (config('flare.reporting.report_logs', true)) {
             $this->registerLogRecorder();
         }
 
-        if (config('flare.reporting.report_queries')) {
+        if (config('flare.reporting.report_queries', true)) {
             $this->registerQueryRecorder();
         }
 
@@ -392,15 +395,16 @@ class IgnitionServiceProvider extends ServiceProvider
         $middlewares = [
             SetNotifierName::class,
             AddEnvironmentInformation::class,
+            AddExceptionInformation::class,
         ];
 
-        if (config('flare.reporting.report_logs')) {
+        if (config('flare.reporting.report_logs', true)) {
             $middlewares[] = AddLogs::class;
         }
 
         $middlewares[] = AddDumps::class;
 
-        if (config('flare.reporting.report_queries')) {
+        if (config('flare.reporting.report_queries', true)) {
             $middlewares[] = AddQueries::class;
         }
 
@@ -443,6 +447,8 @@ class IgnitionServiceProvider extends ServiceProvider
             RunningLaravelDuskInProductionProvider::class,
             MissingColumnSolutionProvider::class,
             UnknownValidationSolutionProvider::class,
+            UndefinedLivewireMethodSolutionProvider::class,
+            UndefinedLivewirePropertySolutionProvider::class,
             UndefinedPropertySolutionProvider::class,
             MissingMixManifestSolutionProvider::class,
             MissingLivewireComponentSolutionProvider::class,
@@ -504,11 +510,11 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->app->get(SentReports::class)->clear();
         $this->app->get(Flare::class)->reset();
 
-        if (config('flare.reporting.report_logs')) {
+        if (config('flare.reporting.report_logs', true)) {
             $this->app->make(LogRecorder::class)->reset();
         }
 
-        if (config('flare.reporting.report_queries')) {
+        if (config('flare.reporting.report_queries', true)) {
             $this->app->make(QueryRecorder::class)->reset();
         }
 
